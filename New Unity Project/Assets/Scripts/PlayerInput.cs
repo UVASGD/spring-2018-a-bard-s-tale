@@ -6,21 +6,28 @@ public class PlayerInput : MonoBehaviour {
 	public int threshold;
 	public Material mat;
 
-	private Note[] notes;
+	private Chord[] chords;
+	private AudioSource[] notes;
 	private int transpose = 0;
 
 	private BitString	keys;
-	private int numOfKeys=13;
+	private int numOfKeys=20;
+	private int numOfChords=24;
 
 	// Use this for initialization
 	void Start () {
 		keys = new BitString(numOfKeys);
-
-		notes = new Note[numOfKeys];
+		chords = new Chord[numOfChords];
+		notes = new AudioSource[numOfKeys];
 		for(int i = 0; i < numOfKeys; ++i) {
 			AudioSource temp = GameObject.Instantiate(this.transform.GetChild(0).transform.GetChild(0), this.transform.GetChild(0)).GetComponent<AudioSource>();
 			temp.pitch = Mathf.Pow(2, (i+transpose)/12.0f);
-			notes[i] = new Note(temp);
+			notes[i] = temp;
+		}
+
+		for(int i = 0; i < 12; ++i) {
+			chords[i] = new Chord(notes[i], notes[i+4], notes[i+7]);
+			chords[12+i]= new Chord(notes[i], notes[i+3], notes[i+7]);
 		}
 	}
 
@@ -31,27 +38,22 @@ public class PlayerInput : MonoBehaviour {
 	}
 
 	void changeKey() {
-		keys.set(0, Input.GetKey(KeyCode.Q));
-		keys.set(1, Input.GetKey(KeyCode.W));
-		keys.set(2, Input.GetKey(KeyCode.E));
-		keys.set(3, Input.GetKey(KeyCode.R));
-		keys.set(4, Input.GetKey(KeyCode.T));
-		keys.set(5, Input.GetKey(KeyCode.Y));
-		keys.set(6, Input.GetKey(KeyCode.U));
-		keys.set(7, Input.GetKey(KeyCode.I));
-		keys.set(8, Input.GetKey(KeyCode.O));
-		keys.set(9, Input.GetKey(KeyCode.P));
-		keys.set(10, Input.GetKey(KeyCode.LeftBracket));
-		keys.set(11, Input.GetKey(KeyCode.RightBracket));
-		keys.set(12, Input.GetKey(KeyCode.Backslash));
+		keys.set(0, Input.GetKey(KeyCode.Alpha1));
+		keys.set(1, Input.GetKey(KeyCode.Alpha2));
+		keys.set(2, Input.GetKey(KeyCode.Alpha3));
+		keys.set(3, Input.GetKey(KeyCode.Alpha4));
+		keys.set(4, Input.GetKey(KeyCode.Alpha5));
+		keys.set(5, Input.GetKey(KeyCode.Alpha6));
+		keys.set(6, Input.GetKey(KeyCode.Alpha7));
+		keys.set(7, Input.GetKey(KeyCode.Alpha8));
 	}
 
 	void playChord() {
-		for(int i = 0; i < numOfKeys; ++i) {
+		for(int i = 0; i < 8; ++i) {
 			if(keys.at(i)==1)
-				notes[i].play();
+				chords[i].play();
 			else if (keys.at(i)==0)
-				notes[i].stop(); //Note.stop does not actually stop the audio
+				chords[i].stop(); //Note.stop does not actually stop the audio
 		}
 		/*
 		//Naive implementation
