@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /*
  * Create two scenes:
@@ -15,9 +16,13 @@ using UnityEngine;
  * 
 */
 
-public class ChangeScene : MonoBehaviour { 	
+public class ChangeScene1 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
+        /*
+        string name = SceneManager.GetActiveScene().name;
+        print("name");
+        */
 
         if (Input.GetKeyDown("space")){
             Application.LoadLevel("Scene2");
