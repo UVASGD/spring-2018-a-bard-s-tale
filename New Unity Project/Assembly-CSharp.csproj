@@ -51,7 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PlayerInput.cs" />
+     <Compile Include="Assets\Scripts\BitString.cs" />
+     <Compile Include="Assets\Scripts\Note.cs" />
+     <Compile Include="Assets\Scripts\PlayerInput.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
