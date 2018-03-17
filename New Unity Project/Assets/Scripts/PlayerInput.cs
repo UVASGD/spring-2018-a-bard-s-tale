@@ -30,6 +30,7 @@ public class PlayerInput : MonoBehaviour {
 			AudioSource temp = GameObject.Instantiate(this.transform.GetChild(0), this.transform).GetComponent<AudioSource>();
 			temp.pitch = Mathf.Pow(2, (i+transpose)/12.0f);
 			notes[i] = temp;
+			loadChords();
 		}
 
 		//Sets bottom half of chords to major triads, upper half to minor
@@ -44,6 +45,7 @@ public class PlayerInput : MonoBehaviour {
 	void Update () {
 		changeKey();
 		updateHotbar(); //Currently inefficient
+		saveChords();
 		playChord();
 	}
 
@@ -77,6 +79,19 @@ public class PlayerInput : MonoBehaviour {
 	void updateHotbar() {
 		for(int i = 0; i < numOfKeys; ++i) {
 			hotkeyMapping[i]=profile[i].value;
+		}
+	}
+
+	void saveChords() {
+		for(int i = 0; i < numOfKeys; ++i) {
+			PlayerPrefs.SetInt("Chord"+i, hotkeyMapping[i]);
+		}
+	}
+
+	void loadChords() {
+		for(int i = 0; i < numOfKeys; ++i) {
+			hotkeyMapping[i] = PlayerPrefs.GetInt("Chord"+i);
+			profile[i].value = hotkeyMapping[i];
 		}
 	}
 }
