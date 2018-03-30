@@ -2,29 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chord : MonoBehaviour{
+public class Chord{
 
-	AudioSource baseAudio;
-	static float minDuration = 0.235f;
+	AudioSource[] baseAudio;
 
-	public void setAudio(AudioSource x) {
-		baseAudio = x;
+	//bool isPlaying;
+
+	public Chord(AudioSource a, AudioSource b, AudioSource c) {
+		baseAudio = new AudioSource[3];
+		baseAudio[0] = a;
+		baseAudio[1] = b;
+		baseAudio[2] = c;
+		//isPlaying = false;
 	}
+
 	public void play() {
-			baseAudio.Stop();
-			baseAudio.Play();
+			foreach (AudioSource x in baseAudio) {
+				x.Stop();
+				x.Play();
+			}
 	}
 
 	public void stop() {
-		if(baseAudio.time>minDuration)
-				baseAudio.Stop();
-	}
-
-	void Start() {
-
-	}
-
-	void Update() {
-
+		//isPlaying=false;
+		foreach (AudioSource x in baseAudio)
+			x.Stop();
 	}
 }
