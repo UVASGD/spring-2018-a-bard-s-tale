@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Bard.cs" />
      <Compile Include="Assets\Scripts\BitString.cs" />
      <Compile Include="Assets\Scripts\Chord.cs" />
      <Compile Include="Assets\Scripts\PlayerInput.cs" />
