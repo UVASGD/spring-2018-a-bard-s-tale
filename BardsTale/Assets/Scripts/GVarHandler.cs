@@ -413,7 +413,7 @@ public class GVarHandler : MonoBehaviour {
         olk = 10 + (tempo / 120) + tone - tension;
         ass = 15 - tension + tone;
         acy = (volume * 10) + (tempo / 120) + (frequency * 2);
-        /*
+        
         if (olk > 1)
         {
             olk = 1;
@@ -437,7 +437,7 @@ public class GVarHandler : MonoBehaviour {
         if (acy < -1)
         {
             acy = -1;
-        }*/
+        }
 
         Agency.text = "" + acy;
         Outlook.text = "" + olk;
