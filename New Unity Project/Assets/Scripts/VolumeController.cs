@@ -20,7 +20,6 @@ public class VolumeController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float newVol = volumeSlider.value;
-		Debug.Log (newVol);
 		vol.ChangeVolume (newVol);
 	}
 }
