@@ -36,7 +36,7 @@ public class GVarHandler : MonoBehaviour {
 
     public Text Tempo;
     public Text Volume;
-    
+
     public Text Outlook;
     public Text Agency;
     public Text Assurance;
@@ -67,12 +67,20 @@ public class GVarHandler : MonoBehaviour {
     private float olk = 0.0f;
     private float ass = 0.0f;
 
+    private Chord[] chord;
+    public AudioClip[] samples;
     // Use this for initialization
     private void Start() {
         tone = 0;
         tension = 5;
         frequency = 0.0f;
 
+        chord = new Chord[24];
+  			for(int i = 0; i<24; ++i) {
+  				AudioSource x = gameObject.AddComponent<AudioSource>();
+  				x.clip = samples[i];
+  				chord[i] = new Chord(x);
+  			}
         //value is between 0 and 1
         //expect max speed to be 240 bpm
         tempo = TSlide.value * 240;
@@ -150,7 +158,7 @@ public class GVarHandler : MonoBehaviour {
         normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful"};
         battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
     }
-	
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -160,9 +168,9 @@ public class GVarHandler : MonoBehaviour {
         }
         else
         {
-            cooldown = 20;
+            cooldown = 0;
             int index = 0;
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 AOn.color = Color.green;
                 string chordPlayed = AVal.text;
@@ -201,12 +209,13 @@ public class GVarHandler : MonoBehaviour {
                 //set LPC
                 LPC.text = AVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if(Input.GetKeyUp(KeyCode.A))
             {
                 AOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 SOn.color = Color.green;
                 string chordPlayed = SVal.text;
@@ -230,7 +239,7 @@ public class GVarHandler : MonoBehaviour {
                     tension = tensions[prevChord, index];
                 }
                 Ten.text = "" + tension;
-                
+
                 float deltTime = Time.time - lastTime;
                 lastTime = Time.time;
                 frequency = deltTime / tempo;
@@ -238,12 +247,13 @@ public class GVarHandler : MonoBehaviour {
 
                 LPC.text = SVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if (Input.GetKeyUp(KeyCode.S))
             {
                 SOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D))
             {
                 DOn.color = Color.green;
                 string chordPlayed = DVal.text;
@@ -276,12 +286,13 @@ public class GVarHandler : MonoBehaviour {
 
                 LPC.text = DVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if (Input.GetKeyUp(KeyCode.D))
             {
                 DOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 FOn.color = Color.green;
                 string chordPlayed = FVal.text;
@@ -314,12 +325,13 @@ public class GVarHandler : MonoBehaviour {
 
                 LPC.text = FVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if (Input.GetKeyUp(KeyCode.F))
             {
                 FOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 GOn.color = Color.green;
                 string chordPlayed = GVal.text;
@@ -352,12 +364,13 @@ public class GVarHandler : MonoBehaviour {
 
                 LPC.text = GVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if (Input.GetKeyUp(KeyCode.G))
             {
                 GOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 HOn.color = Color.green;
                 string chordPlayed = HVal.text;
@@ -392,12 +405,25 @@ public class GVarHandler : MonoBehaviour {
 
                 LPC.text = HVal.text;
                 prevChord = index;
+                chord[index].play();
             }
-            else
+            if (Input.GetKeyUp(KeyCode.H))
             {
                 HOn.color = Color.red;
             }
         }
+        if (!Input.GetKey(KeyCode.A))
+          chord[0].stop();
+        if (!Input.GetKey(KeyCode.S))
+          chord[10].stop();
+        if (!Input.GetKey(KeyCode.D))
+          chord[14].stop();
+        if (!Input.GetKey(KeyCode.F))
+          chord[19].stop();
+        if (!Input.GetKey(KeyCode.G))
+          chord[9].stop();
+        if (!Input.GetKey(KeyCode.H))
+          chord[5].stop();
         calcFunctions();
         getAttitude();
 
@@ -413,7 +439,7 @@ public class GVarHandler : MonoBehaviour {
         olk = 10 + (tempo / 120) + tone - tension;
         ass = 15 - tension + tone;
         acy = (volume * 10) + (tempo / 120) + (frequency * 2);
-        
+
         if (olk > 1)
         {
             olk = 1;

@@ -1,31 +1,22 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Chord{
 
-	AudioSource[] baseAudio;
+	AudioSource baseAudio;
+	static float minDuration = 0.235f;
 
-	//bool isPlaying;
-
-	public Chord(AudioSource a, AudioSource b, AudioSource c) {
-		baseAudio = new AudioSource[3];
-		baseAudio[0] = a;
-		baseAudio[1] = b;
-		baseAudio[2] = c;
-		//isPlaying = false;
+	public Chord(AudioSource x) {
+		baseAudio = x;
 	}
-
 	public void play() {
-			foreach (AudioSource x in baseAudio) {
-				x.Stop();
-				x.Play();
-			}
+			baseAudio.Stop();
+			baseAudio.Play();
 	}
 
 	public void stop() {
-		//isPlaying=false;
-		foreach (AudioSource x in baseAudio)
-			x.Stop();
+		if(baseAudio.time>minDuration)
+				baseAudio.Stop();
 	}
 }
