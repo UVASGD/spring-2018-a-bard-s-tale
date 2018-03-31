@@ -208,12 +208,10 @@ public class GVarHandler : MonoBehaviour {
             cooldown = 0;
             if (Input.GetKeyDown(KeyCode.A))
             {
-                Debug.Log("A Down");
                 playChord(AOn, AVal, hotKeys[0]);
             }
             if(Input.GetKeyUp(KeyCode.A))
             {
-                Debug.Log("A Up");
                 chord[hotKeys[0]].stop();
                 AOn.color = Color.red;
             }
