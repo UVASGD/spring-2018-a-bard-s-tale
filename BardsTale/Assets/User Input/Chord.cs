@@ -16,7 +16,7 @@ public class Chord{
 	}
 
 	public void stop() {
-		if(baseAudio.time>minDuration)
+		//if(baseAudio.time>minDuration)
 				baseAudio.Stop();
 	}
 }
