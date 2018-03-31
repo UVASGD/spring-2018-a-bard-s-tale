@@ -193,7 +193,6 @@ public class GVarHandler : MonoBehaviour {
         //set LPC
         LPC.text = val.text;
         prevChord = index;
-        chord[index].setVolume(volume);
         chord[index].play();
     }
 
@@ -267,6 +266,10 @@ public class GVarHandler : MonoBehaviour {
 
         calcFunctions();
         getAttitude();
+
+        for(int i = 0; i<24; ++i) {
+          chord[i].setVolume(volume);
+        }
 
         tempo = TSlide.value * 240;
         Tempo.text = "" + tempo;
