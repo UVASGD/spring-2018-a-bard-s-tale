@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - ToggleT
+  - TempoSlider
+  - VolumeSlider
   layers:
   - Default
   - TransparentFX

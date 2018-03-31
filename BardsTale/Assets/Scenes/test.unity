@@ -540,7 +540,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: f91c8c2382f88da4aad761bd36c04b58, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 3
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -2763,7 +2763,7 @@ GameObject:
   - component: {fileID: 996322444}
   m_Layer: 5
   m_Name: Tempo
-  m_TagString: Untagged
+  m_TagString: TempoSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2830,7 +2830,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 105283553}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 3
   m_WholeNumbers: 0
   m_Value: 0.5
   m_OnValueChanged:
@@ -2849,6 +2849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf1b5cd86a43854f921b02c9fe5b720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempo: {fileID: 0}
 --- !u!1 &1042773937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,7 +3300,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1270732984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67c1e757d1fbfb24e864687ad156b226, type: 3}
   m_Name: 
@@ -4207,7 +4208,7 @@ GameObject:
   - component: {fileID: 1722213459}
   m_Layer: 5
   m_Name: Volume
-  m_TagString: Untagged
+  m_TagString: VolumeSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4434,9 +4435,10 @@ GameObject:
   - component: {fileID: 1825474127}
   - component: {fileID: 1825474129}
   - component: {fileID: 1825474128}
+  - component: {fileID: 1825474130}
   m_Layer: 5
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: VolumeSlider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4492,6 +4494,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1825474126}
+--- !u!114 &1825474130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1825474126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6b2cf7a5855a74c8b0f6049c71e2b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vol: {fileID: 0}
 --- !u!1 &1844858953
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,6 +4769,7 @@ GameObject:
   - component: {fileID: 1974847867}
   - component: {fileID: 1974847866}
   - component: {fileID: 1974847865}
+  - component: {fileID: 1974847869}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4825,6 +4840,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1974847869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1974847864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0678977dc82ab564b9b3dd78ed37423f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2084449856
 GameObject:
   m_ObjectHideFlags: 0

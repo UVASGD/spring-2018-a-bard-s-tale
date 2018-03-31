@@ -9,12 +9,12 @@ public class TempoChange : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		tempo = GameObject.FindGameObjectWithTag ("ToggleT").GetComponent<> ();
-		
+		tempoSlider = GameObject.FindGameObjectWithTag ("TempoSlider").GetComponent<Slider> ();
+		tempo = GameObject.FindGameObjectWithTag ("ToggleT").GetComponent<TempoToggle> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		tempo.setTempo (tempoSlider.value);
 	}
 }
