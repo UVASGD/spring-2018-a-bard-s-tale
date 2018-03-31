@@ -36,7 +36,7 @@ public class GVarHandler : MonoBehaviour {
 
     public Text Tempo;
     public Text Volume;
-    
+
     public Text Outlook;
     public Text Agency;
     public Text Assurance;
@@ -67,12 +67,25 @@ public class GVarHandler : MonoBehaviour {
     private float olk = 0.0f;
     private float ass = 0.0f;
 
+    private Chord[] chord;
+    public AudioClip[] samples;
+
+    private int[] hotKeys;
     // Use this for initialization
     private void Start() {
         tone = 0;
         tension = 5;
         frequency = 0.0f;
 
+        hotKeys = new int[] {0, 10, 14, 19, 9, 5};
+
+        chord = new Chord[24];
+  		for(int i = 0; i<24; ++i)
+        {
+  			AudioSource x = gameObject.AddComponent<AudioSource>();
+  			x.clip = samples[i];
+  			chord[i] = new Chord(x);
+  		}
         //value is between 0 and 1
         //expect max speed to be 240 bpm
         tempo = TSlide.value * 240;
@@ -150,7 +163,39 @@ public class GVarHandler : MonoBehaviour {
         normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful"};
         battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
     }
-	
+
+    private void playChord(Image on, Text val, int index)
+    {
+        on.color = Color.green;
+        string chordPlayed = val.text;
+
+        //set tone
+        tone += tones[index];
+        Ton.text = "" + tone;
+
+        //set tension
+        if (prevChord == -1)
+        {
+            tension = tensions[0, index];
+        }
+        else
+        {
+            tension = tensions[prevChord, index];
+        }
+        Ten.text = "" + tension;
+
+        //set freq
+        float deltTime = Time.time - lastTime;
+        lastTime = Time.time;
+        frequency = deltTime / tempo;
+        Freq.text = "" + frequency;
+
+        //set LPC
+        LPC.text = val.text;
+        prevChord = index;
+        chord[index].play();
+    }
+
 	// Update is called once per frame
 	void Update ()
     {
@@ -160,246 +205,69 @@ public class GVarHandler : MonoBehaviour {
         }
         else
         {
-            cooldown = 20;
-            int index = 0;
-            if (Input.GetKey(KeyCode.A))
+            cooldown = 0;
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                AOn.color = Color.green;
-                string chordPlayed = AVal.text;
-                //find index, for the val given
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-
-                //set tone
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                //set tension
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                }
-                Ten.text = "" + tension;
-
-                //set freq
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-
-                //set LPC
-                LPC.text = AVal.text;
-                prevChord = index;
+                playChord(AOn, AVal, hotKeys[0]);
             }
-            else
+            if(Input.GetKeyUp(KeyCode.A))
             {
+                chord[hotKeys[0]].stop();
                 AOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S))
             {
-                SOn.color = Color.green;
-                string chordPlayed = SVal.text;
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                }
-                Ten.text = "" + tension;
-                
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-                LPC.text = SVal.text;
-                prevChord = index;
+                playChord(SOn, SVal, hotKeys[1]);
             }
-            else
+            if (Input.GetKeyUp(KeyCode.S))
             {
+                chord[hotKeys[1]].stop();
                 SOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                DOn.color = Color.green;
-                string chordPlayed = DVal.text;
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                }
-                Ten.text = "" + tension;
-
-                //set freq
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-                LPC.text = DVal.text;
-                prevChord = index;
+                playChord(DOn, DVal, hotKeys[2]);
             }
-            else
+            if (Input.GetKeyUp(KeyCode.D))
             {
+                chord[hotKeys[2]].stop();
                 DOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                FOn.color = Color.green;
-                string chordPlayed = FVal.text;
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                }
-                Ten.text = "" + tension;
-
-                //set freq
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-                LPC.text = FVal.text;
-                prevChord = index;
+                playChord(FOn, FVal, hotKeys[3]);
             }
-            else
+            if (Input.GetKeyUp(KeyCode.F))
             {
+                chord[hotKeys[3]].stop();
                 FOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.G))
             {
-                GOn.color = Color.green;
-                string chordPlayed = GVal.text;
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                }
-                Ten.text = "" + tension;
-
-                //set freq
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-                LPC.text = GVal.text;
-                prevChord = index;
+                playChord(GOn, GVal, hotKeys[4]);
             }
-            else
+            if (Input.GetKeyUp(KeyCode.G))
             {
+                chord[hotKeys[4]].stop();
                 GOn.color = Color.red;
             }
-            if (Input.GetKey(KeyCode.H))
+            if (Input.GetKeyDown(KeyCode.H))
             {
-                HOn.color = Color.green;
-                string chordPlayed = HVal.text;
-                for (int i = 0; i < possChords.Length; i++)
-                {
-                    if (chordPlayed.Equals(possChords[i]))
-                    {
-                        index = i;
-                        break;
-                    }
-                }
-                tone += tones[index];
-                Ton.text = "" + tone;
-
-                if (prevChord == -1)
-                {
-                    tension = tensions[0, index];
-                }
-                else
-                {
-                    tension = tensions[prevChord, index];
-                    if (tension < 0)
-                        tension = 0;
-                }
-                Ten.text = "" + tension;
-
-                //set freq
-                float deltTime = Time.time - lastTime;
-                lastTime = Time.time;
-                frequency = deltTime / tempo;
-                Freq.text = "" + frequency;
-
-                LPC.text = HVal.text;
-                prevChord = index;
+                playChord(HOn, HVal, hotKeys[5]);
             }
-            else
+            if (Input.GetKeyUp(KeyCode.H))
             {
+                chord[hotKeys[5]].stop();
                 HOn.color = Color.red;
             }
         }
+
         calcFunctions();
         getAttitude();
+
+        for(int i = 0; i<24; ++i) {
+          chord[i].setVolume(volume);
+        }
 
         tempo = TSlide.value * 240;
         Tempo.text = "" + tempo;
@@ -413,31 +281,31 @@ public class GVarHandler : MonoBehaviour {
         olk = 10 + (tempo / 120) + tone - tension;
         ass = 15 - tension + tone;
         acy = (volume * 10) + (tempo / 120) + (frequency * 2);
-        
-        if (olk > 1)
-        {
-            olk = 1;
-        }
-        if (ass > 1)
-        {
-            ass = 1;
-        }
-        if (acy > 1)
-        {
-            acy = 1;
-        }
-        if (olk < -1)
-        {
-            olk = -1;
-        }
-        if (ass < -1)
-        {
-            ass = -1;
-        }
-        if (acy < -1)
-        {
-            acy = -1;
-        }
+
+        //if (olk > 1)
+        //{
+        //    olk = 1;
+        //}
+        //if (ass > 1)
+        //{
+        //    ass = 1;
+        //}
+        //if (acy > 1)
+        //{
+        //    acy = 1;
+        //}
+        //if (olk < -1)
+        //{
+        //    olk = -1;
+        //}
+        //if (ass < -1)
+        //{
+        //    ass = -1;
+        //}
+        //if (acy < -1)
+        //{
+        //    acy = -1;
+        //}
 
         Agency.text = "" + acy;
         Outlook.text = "" + olk;
