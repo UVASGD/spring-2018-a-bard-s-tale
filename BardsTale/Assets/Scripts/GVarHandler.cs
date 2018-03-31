@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class GVarHandler : MonoBehaviour {
     public AudioSource speaker;
 
     // Keybindings data
+    
     public Image AOn;
     public Image SOn;
     public Image DOn;
@@ -43,6 +45,35 @@ public class GVarHandler : MonoBehaviour {
 
     public Text ATT;
 
+    //holds all the chords
+    public AudioSource I;
+    public AudioSource i;
+    public AudioSource IIb;
+    public AudioSource iib;
+    public AudioSource II;
+    public AudioSource ii;
+    public AudioSource IIIb;
+    public AudioSource iiib;
+    public AudioSource III;
+    public AudioSource iii;
+    public AudioSource IV;
+    public AudioSource iv;
+    public AudioSource Vb;
+    public AudioSource vb;
+    public AudioSource V;
+    public AudioSource v;
+    public AudioSource VIb;
+    public AudioSource vib;
+    public AudioSource VI;
+    public AudioSource vi;
+    public AudioSource VIIb;
+    public AudioSource viib;
+    public AudioSource VII;
+    public AudioSource vii;
+
+    public AudioSource[] clips;
+
+
     //private data for algorithm-ing
     private string[] chords;
     private int prevChord = -1;
@@ -55,12 +86,16 @@ public class GVarHandler : MonoBehaviour {
 
     //globals for calculations
     private float frequency;
-    private int tension;
-    private int tone;
+    private float tension;
+    private float tone;
     private float tempo;
     private float volume;
 
     private int cooldown = 0;
+    private int coolValue = 5;
+    private bool isPlaying = false;
+    private int stopcooldown = 30;
+    private int stopcoolvalue = 30;
     private float lastTime = 0.001f;
 
     private float acy = 0.0f;
@@ -77,8 +112,16 @@ public class GVarHandler : MonoBehaviour {
         tension = 5;
         frequency = 0.0f;
 
-        hotKeys = new int[] {0, 10, 14, 19, 9, 5};
+        hotKeys = new int[] {0, 10, 14, 19, 9, 20};
 
+
+        setPossChords();
+        setChords();
+        setTones();
+        setTensions();
+        setFeels();
+
+        /*
         chord = new Chord[24];
   		for(int i = 0; i<24; ++i)
         {
@@ -86,6 +129,11 @@ public class GVarHandler : MonoBehaviour {
   			x.clip = samples[i];
   			chord[i] = new Chord(x);
   		}
+        */
+
+        //holds all the AudioSources
+        clips = new AudioSource[] { I, i, IIb, iib, II, ii, IIIb, iiib, III, iii, IV, iv, Vb, vb, V, v, VIb, vib, VI, vi, VIIb, viib, VII, vii};
+
         //value is between 0 and 1
         //expect max speed to be 240 bpm
         tempo = TSlide.value * 240;
@@ -93,29 +141,23 @@ public class GVarHandler : MonoBehaviour {
         //value is between 0 and 1
         volume = VSlide.value;
 
-        setChords();
-        setPossChords();
-        setTones();
-        setTensions();
-
-        setFeels();
 	}
 
     // initialization but compressed, for algorithm-y stuff
     void setChords()
     {
         chords = new string[6];
-        AVal.text = "I";
+        AVal.text = possChords[hotKeys[0]];
         chords[0] = "I";
-        SVal.text = "IV";
+        SVal.text = possChords[hotKeys[1]];
         chords[1] = "IV";
-        DVal.text = "V";
+        DVal.text = possChords[hotKeys[2]];
         chords[2] = "V";
-        FVal.text = "vi";
+        FVal.text = possChords[hotKeys[3]];
         chords[3] = "vi";
-        GVal.text = "iii";
+        GVal.text = possChords[hotKeys[4]];
         chords[4] = "iii";
-        HVal.text = "ii";
+        HVal.text = possChords[hotKeys[5]];
         chords[5] = "ii";
     }
 
@@ -170,103 +212,130 @@ public class GVarHandler : MonoBehaviour {
         string chordPlayed = val.text;
 
         //set tone
-        tone += tones[index];
+        tone += (tones[index]/10);
         Ton.text = "" + tone;
 
         //set tension
         if (prevChord == -1)
         {
-            tension = tensions[0, index];
+            tension = tension + tensions[0, index];
         }
         else
         {
-            tension = tensions[prevChord, index];
+            tension = tension + tensions[prevChord, index];
         }
+        if (tension < 0)
+            tension = 0;
         Ten.text = "" + tension;
 
         //set freq
         float deltTime = Time.time - lastTime;
         lastTime = Time.time;
-        frequency = deltTime / tempo;
+        frequency = (tempo - 240*deltTime)/(tempo);
+        if (frequency < 0)
+            frequency = 0;
         Freq.text = "" + frequency;
 
         //set LPC
         LPC.text = val.text;
         prevChord = index;
-        chord[index].play();
+        clips[index].Play();
     }
 
 	// Update is called once per frame
 	void Update ()
     {
+        if (isPlaying)
+        {
+            stopcooldown--;
+        }
+        cooldown--;
         if (cooldown > 0)
         {
-            cooldown--;
+            Debug.Log(cooldown + "");
         }
         else
         {
-            cooldown = 0;
             if (Input.GetKeyDown(KeyCode.A))
             {
                 playChord(AOn, AVal, hotKeys[0]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if(Input.GetKeyUp(KeyCode.A))
+            else
             {
-                chord[hotKeys[0]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[0]].Stop();
                 AOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 playChord(SOn, SVal, hotKeys[1]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if (Input.GetKeyUp(KeyCode.S))
+            else
             {
-                chord[hotKeys[1]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[1]].Stop();
                 SOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 playChord(DOn, DVal, hotKeys[2]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if (Input.GetKeyUp(KeyCode.D))
+            else
             {
-                chord[hotKeys[2]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[2]].Stop();
                 DOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
                 playChord(FOn, FVal, hotKeys[3]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if (Input.GetKeyUp(KeyCode.F))
+            else
             {
-                chord[hotKeys[3]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[3]].Stop();
                 FOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
                 playChord(GOn, GVal, hotKeys[4]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if (Input.GetKeyUp(KeyCode.G))
+            else
             {
-                chord[hotKeys[4]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[4]].Stop();
                 GOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
                 playChord(HOn, HVal, hotKeys[5]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
             }
-            if (Input.GetKeyUp(KeyCode.H))
+            else
             {
-                chord[hotKeys[5]].stop();
+                if (stopcooldown < 0)
+                    clips[hotKeys[5]].Stop();
                 HOn.color = Color.red;
             }
         }
+        
 
         calcFunctions();
         getAttitude();
 
         for(int i = 0; i<24; ++i) {
-          chord[i].setVolume(volume);
+          clips[i].volume = volume;
         }
 
         tempo = TSlide.value * 240;
@@ -278,34 +347,34 @@ public class GVarHandler : MonoBehaviour {
     void calcFunctions()
     {
         // By the time we reach this function, we have a value for tempo, frequency, tension, tone, and volume.
-        olk = 10 + (tempo / 120) + tone - tension;
-        ass = 15 - tension + tone;
-        acy = (volume * 10) + (tempo / 120) + (frequency * 2);
+        olk = (10 + (tempo / 120) + tone - tension)/10;
+        ass = (15 - tension + tone)/10;
+        acy = ((volume * 10) + (tempo / 120) + (frequency * 2))/10;
 
-        //if (olk > 1)
-        //{
-        //    olk = 1;
-        //}
-        //if (ass > 1)
-        //{
-        //    ass = 1;
-        //}
-        //if (acy > 1)
-        //{
-        //    acy = 1;
-        //}
-        //if (olk < -1)
-        //{
-        //    olk = -1;
-        //}
-        //if (ass < -1)
-        //{
-        //    ass = -1;
-        //}
-        //if (acy < -1)
-        //{
-        //    acy = -1;
-        //}
+        if (olk > 1)
+        {
+            olk = 1;
+        }
+        if (ass > 1)
+        {
+            ass = 1;
+        }
+        if (acy > 1)
+        {
+            acy = 1;
+        }
+        if (olk < -1)
+        {
+            olk = -1;
+        }
+        if (ass < -1)
+        {
+            ass = -1;
+        }
+        if (acy < -1)
+        {
+            acy = -1;
+        }
 
         Agency.text = "" + acy;
         Outlook.text = "" + olk;
