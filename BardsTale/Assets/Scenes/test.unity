@@ -454,9 +454,11 @@ GameObject:
   m_Component:
   - component: {fileID: 70857312}
   - component: {fileID: 70857313}
+  - component: {fileID: 70857315}
+  - component: {fileID: 70857314}
   m_Layer: 5
   m_Name: Battle
-  m_TagString: Untagged
+  m_TagString: ToggleT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -526,6 +528,98 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
+--- !u!82 &70857314
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70857311}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: f91c8c2382f88da4aad761bd36c04b58, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &70857315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 70857311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f2e505d176dcd4780d51730db31c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Toggle: {fileID: 0}
 --- !u!1 &86814483
 GameObject:
   m_ObjectHideFlags: 0
@@ -2666,6 +2760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996322442}
   - component: {fileID: 996322443}
+  - component: {fileID: 996322444}
   m_Layer: 5
   m_Name: Tempo
   m_TagString: Untagged
@@ -2743,6 +2838,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &996322444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996322441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf1b5cd86a43854f921b02c9fe5b720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1042773937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,31 +3330,7 @@ MonoBehaviour:
   Agency: {fileID: 4613467}
   Assurance: {fileID: 1331308260}
   ATT: {fileID: 1510463492}
-  samples:
-  - {fileID: 8300000, guid: ed64a07de4240054f9ae4b47290c1d96, type: 3}
-  - {fileID: 8300000, guid: 1a6eeda3591b1924493120332a023ae6, type: 3}
-  - {fileID: 8300000, guid: 68ef177ee7f2d774087c57998b49c258, type: 3}
-  - {fileID: 8300000, guid: c5fea1d7e66c0f840bca32159316af2b, type: 3}
-  - {fileID: 8300000, guid: 2033aca8656e16d47a027f87727818dd, type: 3}
-  - {fileID: 8300000, guid: 1273964d36b9e464a93c7a08defc5ca4, type: 3}
-  - {fileID: 8300000, guid: b06c7f2c7ac37454baaba3fc4928994e, type: 3}
-  - {fileID: 8300000, guid: babf99b1c961d2e4e8151da2d1944325, type: 3}
-  - {fileID: 8300000, guid: f333fe40c282ef845aa6b1240cd80fd6, type: 3}
-  - {fileID: 8300000, guid: b1ff1a7f149452f4495d7d4a695812ff, type: 3}
-  - {fileID: 8300000, guid: ea38a6c9d3cddbe4f8a9fadc2e002ce5, type: 3}
-  - {fileID: 8300000, guid: 7bc0a9cd8d0aa804daba313ab53c1a37, type: 3}
-  - {fileID: 8300000, guid: 2f9e572719f328f4fbd7cc436b09d733, type: 3}
-  - {fileID: 8300000, guid: dfd8a425ea0e9ec46b6f00ecd5591bf0, type: 3}
-  - {fileID: 8300000, guid: 50ad86aa4c296ee49b1ea9878b8c6dec, type: 3}
-  - {fileID: 8300000, guid: a58e330287068d846a220aad929a4157, type: 3}
-  - {fileID: 8300000, guid: a1ad1d43cb984c847a0a8be26ee8be0b, type: 3}
-  - {fileID: 8300000, guid: 900f490e116160546a603b462a14b631, type: 3}
-  - {fileID: 8300000, guid: e741694adab50594fa2c214a923da40e, type: 3}
-  - {fileID: 8300000, guid: 5c8e69a0feef9e64f9195639cb681368, type: 3}
-  - {fileID: 8300000, guid: 49c786a0cd50e9145a8a9d1b54282d31, type: 3}
-  - {fileID: 8300000, guid: 5e926ac94a716974893dd96c36ca18f7, type: 3}
-  - {fileID: 8300000, guid: ce655fb5300f6c946976f53450cd6721, type: 3}
-  - {fileID: 8300000, guid: 625fade5c6f262c489a06f16d1862b2a, type: 3}
+  samples: []
 --- !u!1 &1331308258
 GameObject:
   m_ObjectHideFlags: 0
