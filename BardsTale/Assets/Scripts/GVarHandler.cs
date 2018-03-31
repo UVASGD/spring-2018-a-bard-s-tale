@@ -193,6 +193,7 @@ public class GVarHandler : MonoBehaviour {
         //set LPC
         LPC.text = val.text;
         prevChord = index;
+        chord[index].setVolume(volume);
         chord[index].play();
     }
 

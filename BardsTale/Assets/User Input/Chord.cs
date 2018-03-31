@@ -19,4 +19,8 @@ public class Chord{
 		//if(baseAudio.time>minDuration)
 				baseAudio.Stop();
 	}
+
+	public void setVolume(float f) {
+		baseAudio.volume = f;
+	}
 }
