@@ -5,7 +5,7 @@ using UnityEngine;
 public class Chord{
 
 	AudioSource baseAudio;
-	static float minDuration = 0.235f;
+	//static float minDuration = 0.235f;
 
 	public Chord(AudioSource x) {
 		baseAudio = x;
