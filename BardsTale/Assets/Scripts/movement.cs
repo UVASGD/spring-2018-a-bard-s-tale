@@ -6,13 +6,16 @@ using UnityEngine.UI;
 public class movement : MonoBehaviour {
 
     // locations contains a string of coordinates, in the format "x_1 y_1 x_2 y_2 x_3 y_3" etc
+    // target is another Sprite, and you just move to the other Sprite
     public Text locations;
+    public Sprite target;
+    public bool toLocation = false;
+    public float speed = 0.1f;
 
     private Vector2 position;
     private string[] coords;
     private float[] coordsf;
     private int positionsCovered = 0;
-    private float speed = 0.01f;
 
 	// Use this for initialization
 	void Start () {
@@ -31,19 +34,28 @@ public class movement : MonoBehaviour {
 	void Update () {
         if (positionsCovered * 2 < coordsf.Length - 1)
         {
-            bool xSat = Mathf.Abs(position.x - coordsf[positionsCovered * 2]) < 0.01f;
-            bool ySat = Mathf.Abs(position.y - coordsf[positionsCovered * 2 + 1]) < 0.01f;
+            bool xSat = Mathf.Abs(position.x - coordsf[positionsCovered * 2]) < 0.1f;
+            bool ySat = Mathf.Abs(position.y - coordsf[positionsCovered * 2 + 1]) < 0.1f;
 
-            if (!xSat && position.x != coordsf[positionsCovered * 2])
+            Vector2 dest = new Vector2(coordsf[positionsCovered * 2], coordsf[positionsCovered * 2 + 1]);
+            float xdiff = dest.x - position.x;
+            float ydiff = dest.y - position.y;
+
+            float length = Mathf.Sqrt(Mathf.Pow(xdiff, 2) + Mathf.Pow(ydiff, 2));
+
+            float unit_x = xdiff / length;
+            float unit_y = ydiff / length;
+
+
+
+            if (!xSat)
             {
-                float difference = position.x - coordsf[positionsCovered * 2];
-                position.x -= 0.01f * (difference / Mathf.Abs(difference));
+                position.x += speed * unit_x / 10;
             }
 
-            if (!ySat && position.y != coordsf[positionsCovered * 2 + 1])
+            if (!ySat)
             {
-                float difference = position.y - coordsf[positionsCovered * 2 + 1];
-                position.y -= 0.01f * (difference / Mathf.Abs(difference));
+                position.y += speed * unit_y / 10;
             }
 
             if (xSat && ySat)
