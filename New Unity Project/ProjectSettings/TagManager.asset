@@ -7,6 +7,9 @@ TagManager:
   - ShowOnPause
   - PauseButton
   - ResumeButton
+  - Obstacle
+  - target1
+  - target2
   layers:
   - Default
   - TransparentFX

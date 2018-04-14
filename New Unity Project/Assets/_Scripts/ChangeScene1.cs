@@ -17,7 +17,10 @@ using UnityEngine.SceneManagement;
 */
 
 public class ChangeScene1 : MonoBehaviour {
-	// Update is called once per frame
+    // Update is called once per frame
+    public GameObject player;
+    public GameObject obstacle;
+
 	void Update () {
         /*
         string name = SceneManager.GetActiveScene().name;
