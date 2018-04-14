@@ -13,7 +13,7 @@ using UnityEngine;
 public abstract class Ally : MonoBehaviour
 {
     //the modifier for the formulas to calculate the 3 qualities
-    float d; 
+    //float d; 
 
     //Qualities to determine actions
     float outlook;
@@ -28,9 +28,9 @@ public abstract class Ally : MonoBehaviour
     protected abstract void Update();
 
     //sets the baseline fields for each ally. USE THIS IN Start() METHOD
-    protected void setBaselineValues(float d, float initOutlook, float initAssurance, float initAgency)
+    protected void setBaselineValues(/*float d, */float initOutlook, float initAssurance, float initAgency)
     {
-        this.d = d;
+        //this.d = d;
         outlook = initOutlook;
         assurance = initAssurance;
         agency = initAgency;

@@ -3134,8 +3134,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.35, y: -29.7}
-  m_SizeDelta: {x: 18.05, y: 30}
+  m_AnchoredPosition: {x: 7.78, y: -29.7}
+  m_SizeDelta: {x: 36.32, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &776234065
 MonoBehaviour:
@@ -4647,6 +4647,7 @@ MonoBehaviour:
   viib: {fileID: 320894588}
   VII: {fileID: 92936227}
   vii: {fileID: 355796784}
+  clips: []
   samples: []
 --- !u!1 &1331308258
 GameObject:
