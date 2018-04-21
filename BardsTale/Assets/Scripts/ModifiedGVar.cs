@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,31 +7,57 @@ public class ModifiedGVar : MonoBehaviour {
 
 	// Keybindings data
 	public Canvas ui;
-
+	//Hotbar-related fields
 	private Image[] onArray;
 	private Text[] valArray;
 	private GameObject hotbar;
-	private bool hotbarHidden;
-	//Sliders data
-	public Toggle battletime;
+	private bool hidden;
+
+	//Slider fields
 	public Slider TSlide;
 	public Slider VSlide;
+	//Momentum Bar
 	public Image momentumBar;
 
+	//Health fields
 	private Sprite fullHeart;
 	private Sprite emptyHeart;
 	private Image[] hearts;
-	private GameObject healthbar;
 	private const int maxHearts = 3;
 	private int currHeart;
 
 	// Use this for initialization
 	void Start () {
-
 		initHearts();
+		initSlides(); //set sliders and momentum bar
+		initHotbar();
+	}
 
-		momentumBar.fillAmount = 0.5f;
-		hotbarHidden=false;
+	// Update is called once per frame
+	void Update () {
+		updateHotbar();//Changes sprites to red or green accordingly
+
+		//The following are just for testing
+		if (Input.GetKeyDown(KeyCode.E)) {
+			changeMomentum(.1f);
+		}
+
+		if(Input.GetKeyDown(KeyCode.W)) {
+			changeMomentum(-.1f);
+		}
+
+		if(Input.GetKeyDown(KeyCode.Z)) {
+			damage();
+		}
+
+		if(Input.GetKeyDown(KeyCode.X)) {
+			heal();
+		}
+	}
+
+	//Initialization methods
+	private void initHotbar() {
+		hidden=false;
 		hotbar = ui.transform.Find("Hotbar").gameObject;
 		GameObject[] hotkeys = new GameObject[6];
 		hotkeys[0] = hotbar.transform.Find("A").gameObject;
@@ -44,17 +70,30 @@ public class ModifiedGVar : MonoBehaviour {
 		onArray = new Image[6];
 		valArray = new Text[6];
 
-
 		for(int i = 0; i< 6; i++) {
 			onArray[i]=hotkeys[i].GetComponentInChildren<Image>();
 			valArray[i]=hotkeys[i].GetComponentInChildren<Text>();
 		}
-
 	}
 
-	// Update is called once per frame
-	void Update () {
+	private void initHearts() {
+		currHeart = maxHearts;
+		fullHeart = Resources.Load <Sprite> ("Sprites/Full_Heart");
+		emptyHeart = Resources.Load <Sprite> ("Sprites/Empty_Heart");
+		GameObject healthbar = ui.transform.Find("Healthbar").gameObject;
+		hearts = new Image[maxHearts];
+		for(int i = 0; i < maxHearts; ++i) {
+			hearts[i] = healthbar.transform.Find("Heart "+(i+1)).GetComponent<Image>();
+		}
+	}
 
+	private void initSlides() {
+		momentumBar.fillAmount = 0.5f;
+		TSlide = ui.transform.Find("Tempo/Tempo Slider").gameObject.GetComponent<Slider>();
+		VSlide = ui.transform.Find("Volume/Volume Slider").gameObject.GetComponent<Slider>();
+	}
+
+	private void updateHotbar() {
 		//Hotbar is pressed down
 		if(Input.GetKeyDown(KeyCode.A)) {
 			onArray[0].color = Color.green;
@@ -94,46 +133,16 @@ public class ModifiedGVar : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.H)) {
 			onArray[5].color = Color.red;
 		}
-
+		//Use tab to hide the hotbar!
 		if(Input.GetKeyDown(KeyCode.Tab)) {
-			if(!hotbarHidden) {
-				hotbar.transform.Translate(new Vector3(-500f,500f,0f));
-				hotbarHidden = !hotbarHidden;
+			if(!hidden) {
+				hotbar.transform.Translate(new Vector3(0f,0f,1500f));
+				hidden = !hidden;
 			}
 			else {
-				hotbar.transform.Translate(new Vector3(500f,-500f,0f));
-				hotbarHidden = !hotbarHidden;
+				hotbar.transform.Translate(new Vector3(0f,0f,-1500f));
+				hidden = !hidden;
 			}
-		}
-		//The following are just for testing
-		if (Input.GetKeyDown(KeyCode.E)) {
-			momentumBar.fillAmount += .1f;
-		}
-
-		if(Input.GetKeyDown(KeyCode.W)) {
-			momentumBar.fillAmount -= .1f;
-		}
-
-		if(Input.GetKeyDown(KeyCode.Z)) {
-			setHealth(1);
-		}
-
-		if(Input.GetKeyDown(KeyCode.X)) {
-			setHealth(2);
-		}
-
-		if(Input.GetKeyDown(KeyCode.C)) {
-			setHealth(3);
-		}
-	}
-
-	private void initHearts() {
-		fullHeart = Resources.Load <Sprite> ("Sprites/Full_Heart");
-		emptyHeart = Resources.Load <Sprite> ("Sprites/Empty_Heart");
-		healthbar = ui.transform.Find("Healthbar").gameObject;
-		hearts = new Image[maxHearts];
-		for(int i = 0; i < maxHearts; ++i) {
-			hearts[i] = healthbar.transform.Find("Heart "+(i+1)).GetComponent<Image>();
 		}
 	}
 
@@ -147,5 +156,45 @@ public class ModifiedGVar : MonoBehaviour {
 			hearts[i].sprite =fullHeart;
 		for(; i<maxHearts; ++i)
 			hearts[i].sprite = emptyHeart;
+		currHeart=m;
+	}
+
+	//Public methods which the Bard class can Use
+	public void changeNote(int i, string s) {
+		valArray[i].text = s;
+	}
+
+	public void damage() {
+		damage(1);
+	}
+
+	public void damage(int d) {
+		setHealth(currHeart-d);
+	}
+	public void heal() {
+		heal(1);
+	}
+	public void heal(int h) {
+		setHealth(currHeart+h);
+	}
+
+	public void fullHeal() {
+		setHealth(maxHearts);
+	}
+
+	public void setMomentum(float x) {
+		momentumBar.fillAmount = x;
+	}
+
+	public void changeMomentum(float x) {
+		momentumBar.fillAmount +=x;
+	}
+
+	public float getTempo() {
+		return TSlide.value;
+	}
+
+	public float getVolume() {
+		return VSlide.value;
 	}
 }
