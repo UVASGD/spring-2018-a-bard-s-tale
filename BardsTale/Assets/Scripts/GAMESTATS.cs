@@ -89,4 +89,8 @@ public static class GAMESTATS   {
             "Vb", "vb", "V", "v", "VIb", "vib", "VI", "vi", "VIIb", "viib", "VII", "vii"};
     public static int[] chosenChords = new int[] {
         0, 10, 14, 19, 9, 20 }; //initializes the chosenChords (hotkeys) to default values
+
+    public static string[] battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
+    public static string[] normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful" };
+    public static bool inBattle = false;
 }

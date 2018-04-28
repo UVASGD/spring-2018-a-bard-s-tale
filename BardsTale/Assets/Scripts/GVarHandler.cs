@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GVarHandler : MonoBehaviour {
+public class GVarHandler : MonoBehaviour
+{
 
     public AudioSource speaker;
 
     // Keybindings data
-    
+
     public Image AOn;
     public Image SOn;
     public Image DOn;
@@ -107,12 +108,13 @@ public class GVarHandler : MonoBehaviour {
 
     private int[] hotKeys;
     // Use this for initialization
-    private void Start() {
+    private void Start()
+    {
         tone = 0;
         tension = 5;
         frequency = 0.0f;
 
-        hotKeys = new int[] {0, 10, 14, 19, 9, 20};
+        hotKeys = new int[] { 0, 10, 14, 19, 9, 20 };
 
 
         setPossChords();
@@ -132,7 +134,7 @@ public class GVarHandler : MonoBehaviour {
         */
 
         //holds all the AudioSources
-        clips = new AudioSource[] { I, i, IIb, iib, II, ii, IIIb, iiib, III, iii, IV, iv, Vb, vb, V, v, VIb, vib, VI, vi, VIIb, viib, VII, vii};
+        clips = new AudioSource[] { I, i, IIb, iib, II, ii, IIIb, iiib, III, iii, IV, iv, Vb, vb, V, v, VIb, vib, VI, vi, VIIb, viib, VII, vii };
 
         //value is between 0 and 1
         //expect max speed to be 240 bpm
@@ -141,7 +143,7 @@ public class GVarHandler : MonoBehaviour {
         //value is between 0 and 1
         volume = VSlide.value;
 
-	}
+    }
 
     // initialization but compressed, for algorithm-y stuff
     void setChords()
@@ -169,7 +171,7 @@ public class GVarHandler : MonoBehaviour {
 
     void setTones()
     {
-        tones = new int[] { 3, -1, -2, -2, 1, 2, -2, -1, -2, 2, 2, 1, -2, -1, 2, 1, -2, -2, 2, -3, 1, -2, 1, 1};
+        tones = new int[] { 3, -1, -2, -2, 1, 2, -2, -1, -2, 2, 2, 1, -2, -1, 2, 1, -2, -2, 2, -3, 1, -2, 1, 1 };
     }
 
     void setTensions()
@@ -202,7 +204,7 @@ public class GVarHandler : MonoBehaviour {
 
     void setFeels()
     {
-        normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful"};
+        normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful" };
         battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
     }
 
@@ -212,29 +214,42 @@ public class GVarHandler : MonoBehaviour {
         string chordPlayed = val.text;
 
         //set tone
-        tone += (tones[index]/10);
+        tone += (GAMESTATS.tones[index] / 10);
+        if (tone > 10)
+        {
+            tone = 10;
+        }
+        else if (tone < -10)
+        {
+            tone = -10;
+        }
+        GAMESTATS.tone = tone;
         Ton.text = "" + tone;
 
         //set tension
         if (prevChord == -1)
         {
-            tension = tension + tensions[0, index];
+            tension = tension + GAMESTATS.tensions[0, index];
         }
         else
         {
-            tension = tension + tensions[prevChord, index];
+            tension = tension + GAMESTATS.tensions[prevChord, index];
         }
         if (tension < 0)
             tension = 0;
+        if (tension > 20)
+            tension = 20;
         Ten.text = "" + tension;
+        GAMESTATS.tension = tension;
 
         //set freq
         float deltTime = Time.time - lastTime;
         lastTime = Time.time;
-        frequency = (tempo - 240*deltTime)/(tempo);
+        frequency = (tempo - 240 * deltTime) / (tempo);
         if (frequency < 0)
             frequency = 0;
         Freq.text = "" + frequency;
+        GAMESTATS.frequency = frequency;
 
         //set LPC
         LPC.text = val.text;
@@ -242,8 +257,8 @@ public class GVarHandler : MonoBehaviour {
         clips[index].Play();
     }
 
-	// Update is called once per frame
-	void Update ()
+    // Update is called once per frame
+    void Update()
     {
         if (isPlaying)
         {
@@ -258,211 +273,90 @@ public class GVarHandler : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                playChord(AOn, AVal, hotKeys[0]);
+                playChord(AOn, AVal, GAMESTATS.chosenChords[0]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[0]].Stop();
+                    clips[GAMESTATS.chosenChords[0]].Stop();
                 AOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                playChord(SOn, SVal, hotKeys[1]);
+                playChord(SOn, SVal, GAMESTATS.chosenChords[1]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[1]].Stop();
+                    clips[GAMESTATS.chosenChords[1]].Stop();
                 SOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                playChord(DOn, DVal, hotKeys[2]);
+                playChord(DOn, DVal, GAMESTATS.chosenChords[2]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[2]].Stop();
+                    clips[GAMESTATS.chosenChords[2]].Stop();
                 DOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
-                playChord(FOn, FVal, hotKeys[3]);
+                playChord(FOn, FVal, GAMESTATS.chosenChords[3]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[3]].Stop();
+                    clips[GAMESTATS.chosenChords[3]].Stop();
                 FOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
-                playChord(GOn, GVal, hotKeys[4]);
+                playChord(GOn, GVal, GAMESTATS.chosenChords[4]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[4]].Stop();
+                    clips[GAMESTATS.chosenChords[4]].Stop();
                 GOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
-                playChord(HOn, HVal, hotKeys[5]);
+                playChord(HOn, HVal, GAMESTATS.chosenChords[5]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[hotKeys[5]].Stop();
+                    clips[GAMESTATS.chosenChords[5]].Stop();
                 HOn.color = Color.red;
             }
         }
-        
 
-        calcFunctions();
-        getAttitude();
+        GAMESTATS.volume = volume;
 
-        for(int i = 0; i<24; ++i) {
-          clips[i].volume = volume;
+        for (int i = 0; i < 24; ++i)
+        {
+            clips[i].volume = GAMESTATS.volume;
         }
 
         tempo = TSlide.value * 240;
+        GAMESTATS.tempo = tempo;
         Tempo.text = "" + tempo;
         volume = VSlide.value;
+        GAMESTATS.volume = volume;
         Volume.text = "" + volume;
     }
-
-	void calcFunctions()
-	{
-		// By the time we reach this function, we have a value for tempo, frequency, tension, tone, and volume.
-		olk = (10 + (tempo / 120) + tone - tension)/10;
-		ass = (15 - tension + tone)/10;
-		acy = ((volume * 10) + (tempo / 120) + (frequency * 2))/10;
-
-		if (olk > 1)
-		{
-			olk = 1;
-		}
-		if (ass > 1)
-		{
-			ass = 1;
-		}
-		if (acy > 1)
-		{
-			acy = 1;
-		}
-		if (olk < -1)
-		{
-			olk = -1;
-		}
-		if (ass < -1)
-		{
-			ass = -1;
-		}
-		if (acy < -1)
-		{
-			acy = -1;
-		}
-
-		Agency.text = "" + acy;
-		Outlook.text = "" + olk;
-		Assurance.text = "" + ass;
-	}
-
-	public void getAttitude()
-	{
-		int zaxis = 0;
-		int yaxis = 0;
-		int xaxis = 0;
-
-		if (olk > 0)
-		{
-			zaxis = 1;
-		}
-		else
-		{
-			zaxis = 0;
-		}
-		if (acy > 0)
-		{
-			yaxis = 1;
-		}
-		else
-		{
-			yaxis = 0;
-		}
-		if (ass > 0)
-		{
-			xaxis = 1;
-		}
-		else
-		{
-			xaxis = 0;
-		}
-
-
-		if (battletime.isOn)
-		{
-			ATT.text = battlefeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-		}
-		else
-		{
-			ATT.text = normalfeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-		}
-
-	}
-	public void getAttitude(double olk, double acy, double ass)
-	{
-		int zaxis = 0;
-		int yaxis = 0;
-		int xaxis = 0;
-
-		if (olk > 0)
-		{
-			zaxis = 1;
-		}
-		else
-		{
-			zaxis = 0;
-		}
-		if (acy > 0)
-		{
-			yaxis = 1;
-		}
-		else
-		{
-			yaxis = 0;
-		}
-		if (ass > 0)
-		{
-			xaxis = 1;
-		}
-		else
-		{
-			xaxis = 0;
-		}
-
-
-		if (battletime.isOn)
-		{
-			ATT.text = battlefeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-		}
-		else
-		{
-			ATT.text = normalfeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-		}
-
-	}
 }
