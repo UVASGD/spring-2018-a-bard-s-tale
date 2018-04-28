@@ -344,83 +344,125 @@ public class GVarHandler : MonoBehaviour {
         Volume.text = "" + volume;
     }
 
-    void calcFunctions()
-    {
-        // By the time we reach this function, we have a value for tempo, frequency, tension, tone, and volume.
-        olk = (10 + (tempo / 120) + tone - tension)/10;
-        ass = (15 - tension + tone)/10;
-        acy = ((volume * 10) + (tempo / 120) + (frequency * 2))/10;
+	void calcFunctions()
+	{
+		// By the time we reach this function, we have a value for tempo, frequency, tension, tone, and volume.
+		olk = (10 + (tempo / 120) + tone - tension)/10;
+		ass = (15 - tension + tone)/10;
+		acy = ((volume * 10) + (tempo / 120) + (frequency * 2))/10;
 
-        if (olk > 1)
-        {
-            olk = 1;
-        }
-        if (ass > 1)
-        {
-            ass = 1;
-        }
-        if (acy > 1)
-        {
-            acy = 1;
-        }
-        if (olk < -1)
-        {
-            olk = -1;
-        }
-        if (ass < -1)
-        {
-            ass = -1;
-        }
-        if (acy < -1)
-        {
-            acy = -1;
-        }
+		if (olk > 1)
+		{
+			olk = 1;
+		}
+		if (ass > 1)
+		{
+			ass = 1;
+		}
+		if (acy > 1)
+		{
+			acy = 1;
+		}
+		if (olk < -1)
+		{
+			olk = -1;
+		}
+		if (ass < -1)
+		{
+			ass = -1;
+		}
+		if (acy < -1)
+		{
+			acy = -1;
+		}
 
-        Agency.text = "" + acy;
-        Outlook.text = "" + olk;
-        Assurance.text = "" + ass;
-    }
+		Agency.text = "" + acy;
+		Outlook.text = "" + olk;
+		Assurance.text = "" + ass;
+	}
 
-    void getAttitude()
-    {
-        int zaxis = 0;
-        int yaxis = 0;
-        int xaxis = 0;
+	public void getAttitude()
+	{
+		int zaxis = 0;
+		int yaxis = 0;
+		int xaxis = 0;
 
-        if (olk > 0)
-        {
-            zaxis = 1;
-        }
-        else
-        {
-            zaxis = 0;
-        }
-        if (acy > 0)
-        {
-            yaxis = 1;
-        }
-        else
-        {
-            yaxis = 0;
-        }
-        if (ass > 0)
-        {
-            xaxis = 1;
-        }
-        else
-        {
-            xaxis = 0;
-        }
+		if (olk > 0)
+		{
+			zaxis = 1;
+		}
+		else
+		{
+			zaxis = 0;
+		}
+		if (acy > 0)
+		{
+			yaxis = 1;
+		}
+		else
+		{
+			yaxis = 0;
+		}
+		if (ass > 0)
+		{
+			xaxis = 1;
+		}
+		else
+		{
+			xaxis = 0;
+		}
 
 
-        if (battletime.isOn)
-        {
-            ATT.text = battlefeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-        }
-        else
-        {
-            ATT.text = normalfeels[(zaxis * 4) + (yaxis * 2) + xaxis];
-        }
+		if (battletime.isOn)
+		{
+			ATT.text = battlefeels[(zaxis * 4) + (yaxis * 2) + xaxis];
+		}
+		else
+		{
+			ATT.text = normalfeels[(zaxis * 4) + (yaxis * 2) + xaxis];
+		}
 
-    }
+	}
+	public void getAttitude(double olk, double acy, double ass)
+	{
+		int zaxis = 0;
+		int yaxis = 0;
+		int xaxis = 0;
+
+		if (olk > 0)
+		{
+			zaxis = 1;
+		}
+		else
+		{
+			zaxis = 0;
+		}
+		if (acy > 0)
+		{
+			yaxis = 1;
+		}
+		else
+		{
+			yaxis = 0;
+		}
+		if (ass > 0)
+		{
+			xaxis = 1;
+		}
+		else
+		{
+			xaxis = 0;
+		}
+
+
+		if (battletime.isOn)
+		{
+			ATT.text = battlefeels[(zaxis * 4) + (yaxis * 2) + xaxis];
+		}
+		else
+		{
+			ATT.text = normalfeels[(zaxis * 4) + (yaxis * 2) + xaxis];
+		}
+
+	}
 }
