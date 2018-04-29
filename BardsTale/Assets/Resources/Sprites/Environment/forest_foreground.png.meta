@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 161da208ef80c2341bdd616f6273e14a
-timeCreated: 1524942082
+guid: 13a4bedcca7695e45b11534fd493590d
+timeCreated: 1524970610
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: forest background_0
+    21300000: forest_foreground_0
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -71,7 +71,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: forest background_0
+      name: forest_foreground_0
       rect:
         serializedVersion: 2
         x: 0
