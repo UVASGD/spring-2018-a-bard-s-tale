@@ -75,12 +75,7 @@ public class GVarHandler : MonoBehaviour
     private int stopcooldown = 30;
     private int stopcoolvalue = 30;
     private float lastTime = 0.001f;
-
-    private float acy = 0.0f;
-    private float olk = 0.0f;
-    private float ass = 0.0f;
-
-    private Chord[] chord;
+    
     public AudioClip[] samples;
 
     private int[] hotKeys;
