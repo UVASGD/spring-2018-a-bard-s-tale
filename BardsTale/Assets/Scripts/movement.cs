@@ -34,37 +34,40 @@ public class movement : MonoBehaviour {
 	void Update () {
         if (positionsCovered * 2 < coordsf.Length - 1)
         {
-            bool xSat = Mathf.Abs(position.x - coordsf[positionsCovered * 2]) < 0.1f;
-            bool ySat = Mathf.Abs(position.y - coordsf[positionsCovered * 2 + 1]) < 0.1f;
-
             Vector2 dest = new Vector2(coordsf[positionsCovered * 2], coordsf[positionsCovered * 2 + 1]);
-            float xdiff = dest.x - position.x;
-            float ydiff = dest.y - position.y;
-
-            float length = Mathf.Sqrt(Mathf.Pow(xdiff, 2) + Mathf.Pow(ydiff, 2));
-
-            float unit_x = xdiff / length;
-            float unit_y = ydiff / length;
-
-
-
-            if (!xSat)
-            {
-                position.x += speed * unit_x / 10;
-            }
-
-            if (!ySat)
-            {
-                position.y += speed * unit_y / 10;
-            }
-
-            if (xSat && ySat)
-            {
-                positionsCovered++;
-            }
-            transform.position = position;
-            Debug.Log("Sprite position: " + position.x + ", " + position.y);
-            Debug.Log("\tDebug info: xSat = " + xSat + " ySat = " + ySat + " positionsCovered = " + positionsCovered);
+            moveTo(dest);
         }
 	}
+
+    public void moveTo(Vector2 dest)
+    {
+        bool xSat = Mathf.Abs(position.x - coordsf[positionsCovered * 2]) < 0.1f;
+        bool ySat = Mathf.Abs(position.y - coordsf[positionsCovered * 2 + 1]) < 0.1f;
+
+        float xdiff = dest.x - position.x;
+        float ydiff = dest.y - position.y;
+
+        float length = Mathf.Sqrt(Mathf.Pow(xdiff, 2) + Mathf.Pow(ydiff, 2));
+
+        float unit_x = xdiff / length;
+        float unit_y = ydiff / length;
+
+        if (!xSat)
+        {
+            position.x += speed * unit_x / 10;
+        }
+
+        if (!ySat)
+        {
+            position.y += speed * unit_y / 10;
+        }
+
+        if (xSat && ySat)
+        {
+            positionsCovered++;
+        }
+        transform.position = position;
+        Debug.Log("Sprite position: " + position.x + ", " + position.y);
+        Debug.Log("\tDebug info: xSat = " + xSat + " ySat = " + ySat + " positionsCovered = " + positionsCovered);
+    }
 }

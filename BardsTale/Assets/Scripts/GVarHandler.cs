@@ -9,6 +9,8 @@ public class GVarHandler : MonoBehaviour
 
     public AudioSource speaker;
 
+    public bool debug_mode;
+
     // Keybindings data
 
     public Image AOn;
@@ -47,32 +49,7 @@ public class GVarHandler : MonoBehaviour
     public Text ATT;
 
     //holds all the chords
-    public AudioSource I;
-    public AudioSource i;
-    public AudioSource IIb;
-    public AudioSource iib;
-    public AudioSource II;
-    public AudioSource ii;
-    public AudioSource IIIb;
-    public AudioSource iiib;
-    public AudioSource III;
-    public AudioSource iii;
-    public AudioSource IV;
-    public AudioSource iv;
-    public AudioSource Vb;
-    public AudioSource vb;
-    public AudioSource V;
-    public AudioSource v;
-    public AudioSource VIb;
-    public AudioSource vib;
-    public AudioSource VI;
-    public AudioSource vi;
-    public AudioSource VIIb;
-    public AudioSource viib;
-    public AudioSource VII;
-    public AudioSource vii;
-
-    public AudioSource[] clips;
+    public AudioCollector Audio;
 
 
     //private data for algorithm-ing
@@ -123,19 +100,6 @@ public class GVarHandler : MonoBehaviour
         setTensions();
         setFeels();
 
-        /*
-        chord = new Chord[24];
-  		for(int i = 0; i<24; ++i)
-        {
-  			AudioSource x = gameObject.AddComponent<AudioSource>();
-  			x.clip = samples[i];
-  			chord[i] = new Chord(x);
-  		}
-        */
-
-        //holds all the AudioSources
-        clips = new AudioSource[] { I, i, IIb, iib, II, ii, IIIb, iiib, III, iii, IV, iv, Vb, vb, V, v, VIb, vib, VI, vi, VIIb, viib, VII, vii };
-
         //value is between 0 and 1
         //expect max speed to be 240 bpm
         tempo = TSlide.value * 240;
@@ -149,18 +113,21 @@ public class GVarHandler : MonoBehaviour
     void setChords()
     {
         chords = new string[6];
-        AVal.text = possChords[hotKeys[0]];
         chords[0] = "I";
-        SVal.text = possChords[hotKeys[1]];
         chords[1] = "IV";
-        DVal.text = possChords[hotKeys[2]];
         chords[2] = "V";
-        FVal.text = possChords[hotKeys[3]];
         chords[3] = "vi";
-        GVal.text = possChords[hotKeys[4]];
         chords[4] = "iii";
-        HVal.text = possChords[hotKeys[5]];
         chords[5] = "ii";
+        if (debug_mode)
+        {
+            AVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[0]];
+            SVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[1]];
+            DVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[2]];
+            FVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[3]];
+            GVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[4]];
+            HVal.text = GAMESTATS.possChords[GAMESTATS.chosenChords[5]];
+        }
     }
 
     void setPossChords()
@@ -208,10 +175,12 @@ public class GVarHandler : MonoBehaviour
         battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
     }
 
-    private void playChord(Image on, Text val, int index)
+    private void playChord(Image on, string text, int index)
     {
-        on.color = Color.green;
-        string chordPlayed = val.text;
+        if (debug_mode)
+            on.color = Color.green;
+
+        string chordPlayed = text;
 
         //set tone
         tone += (GAMESTATS.tones[index] / 10);
@@ -224,7 +193,8 @@ public class GVarHandler : MonoBehaviour
             tone = -10;
         }
         GAMESTATS.tone = tone;
-        Ton.text = "" + tone;
+        if (debug_mode)
+            Ton.text = "" + tone;
 
         //set tension
         if (prevChord == -1)
@@ -239,7 +209,8 @@ public class GVarHandler : MonoBehaviour
             tension = 0;
         if (tension > 20)
             tension = 20;
-        Ten.text = "" + tension;
+        if (debug_mode)
+            Ten.text = "" + tension;
         GAMESTATS.tension = tension;
 
         //set freq
@@ -248,13 +219,15 @@ public class GVarHandler : MonoBehaviour
         frequency = (tempo - 240 * deltTime) / (tempo);
         if (frequency < 0)
             frequency = 0;
-        Freq.text = "" + frequency;
+        if (debug_mode)
+            Freq.text = "" + frequency;
         GAMESTATS.frequency = frequency;
 
         //set LPC
-        LPC.text = val.text;
+        if (debug_mode)
+            LPC.text = text;
         prevChord = index;
-        clips[index].Play();
+        Audio.clips[index].Play();
     }
 
     // Update is called once per frame
@@ -273,74 +246,74 @@ public class GVarHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                playChord(AOn, AVal, GAMESTATS.chosenChords[0]);
+                playChord(AOn, GAMESTATS.possChords[GAMESTATS.chosenChords[0]], GAMESTATS.chosenChords[0]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[0]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[0]].Stop();
                 AOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                playChord(SOn, SVal, GAMESTATS.chosenChords[1]);
+                playChord(SOn, GAMESTATS.possChords[GAMESTATS.chosenChords[1]], GAMESTATS.chosenChords[1]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[1]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[1]].Stop();
                 SOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
-                playChord(DOn, DVal, GAMESTATS.chosenChords[2]);
+                playChord(DOn, GAMESTATS.possChords[GAMESTATS.chosenChords[2]], GAMESTATS.chosenChords[2]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[2]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[2]].Stop();
                 DOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
-                playChord(FOn, FVal, GAMESTATS.chosenChords[3]);
+                playChord(FOn, GAMESTATS.possChords[GAMESTATS.chosenChords[3]], GAMESTATS.chosenChords[3]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[3]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[3]].Stop();
                 FOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
-                playChord(GOn, GVal, GAMESTATS.chosenChords[4]);
+                playChord(GOn, GAMESTATS.possChords[GAMESTATS.chosenChords[4]], GAMESTATS.chosenChords[4]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[4]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[4]].Stop();
                 GOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
-                playChord(HOn, HVal, GAMESTATS.chosenChords[5]);
+                playChord(HOn, GAMESTATS.possChords[GAMESTATS.chosenChords[5]], GAMESTATS.chosenChords[5]);
                 cooldown = coolValue;
                 stopcooldown = stopcoolvalue;
             }
             else
             {
                 if (stopcooldown < 0)
-                    clips[GAMESTATS.chosenChords[5]].Stop();
+                    Audio.clips[GAMESTATS.chosenChords[5]].Stop();
                 HOn.color = Color.red;
             }
         }
@@ -349,14 +322,17 @@ public class GVarHandler : MonoBehaviour
 
         for (int i = 0; i < 24; ++i)
         {
-            clips[i].volume = GAMESTATS.volume;
+            Audio.clips[i].volume = GAMESTATS.volume;
         }
 
         tempo = TSlide.value * 240;
         GAMESTATS.tempo = tempo;
-        Tempo.text = "" + tempo;
         volume = VSlide.value;
         GAMESTATS.volume = volume;
-        Volume.text = "" + volume;
+        if (debug_mode)
+        {
+            Tempo.text = "" + tempo;
+            Volume.text = "" + volume;
+        }
     }
 }

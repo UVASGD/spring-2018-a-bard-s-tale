@@ -2,43 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class AudioCollection : MonoBehaviour
-{
-    //holds all the chords
-    public AudioSource I;
-    public AudioSource i;
-    public AudioSource IIb;
-    public AudioSource iib;
-    public AudioSource II;
-    public AudioSource ii;
-    public AudioSource IIIb;
-    public AudioSource iiib;
-    public AudioSource III;
-    public AudioSource iii;
-    public AudioSource IV;
-    public AudioSource iv;
-    public AudioSource Vb;
-    public AudioSource vb;
-    public AudioSource V;
-    public AudioSource v;
-    public AudioSource VIb;
-    public AudioSource vib;
-    public AudioSource VI;
-    public AudioSource vi;
-    public AudioSource VIIb;
-    public AudioSource viib;
-    public AudioSource VII;
-    public AudioSource vii;
-
-    public AudioSource[] clips;
-
-    public void Start()
-    {
-        clips = new AudioSource[] { I, i, IIb, iib, II, ii, IIIb, iiib, III, iii, IV, iv, Vb, vb, V, v, VIb, vib, VI, vi, VIIb, viib, VII, vii };
-    }
-}
-
 //CONTAINS EVERYTHING OUR OTHER SCRIPTS SHOULD USE TO MAKE DECISIONS
 //CONTAINS EVERYTHING OUT OTHER SCRIPTS SHOULD CHANGE
 public static class GAMESTATS   {
@@ -93,4 +56,11 @@ public static class GAMESTATS   {
     public static string[] battlefeels = new string[] { "Determined", "Curious", "Defeated", "Terrified", "Victorious", "Cautious", "Relenting", "Alert" };
     public static string[] normalfeels = new string[] { "Determination", "Foreboding", "Hopeless", "Nervous", "Elated", "Excited", "Content", "Hopeful" };
     public static bool inBattle = false;
+    public static bool isShop = false;
+
+    public static Sprite[] enemies = new Sprite[] { };
+    public static Sprite[] friends = new Sprite[] { };
+
+    public static string currentScene = "";
+    public static string[] scenesList = new string[] { "forest_C1", "forest_B1", "forest_C2", "forest_O1", "forest_B2", "forest_O2", "forest_B3", "forest_B4", "cave_C1"};
 }
