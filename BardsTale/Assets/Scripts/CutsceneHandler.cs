@@ -22,18 +22,25 @@ public class CutsceneHandler : MonoBehaviour {
 		current = 0;
 		currentImage.sprite = sprites[current];
 		currentText.text = texts[current];
-		current++;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Return)) {
-			if(current==sprites.Length)
+		if(Input.GetKeyDown(KeyCode.RightArrow)) {
+			if(current==sprites.Length-1)
 				SceneManager.LoadScene(nextScene);
 			else {
+				current++;
 				currentImage.sprite = sprites[current];
 				currentText.text = texts[current];
-				current++;
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.LeftArrow)) {
+			if(current!=0) {
+				current--;
+				currentImage.sprite = sprites[current];
+				currentText.text = texts[current];
 			}
 		}
 	}
