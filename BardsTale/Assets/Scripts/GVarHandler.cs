@@ -254,7 +254,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[0]].Stop();
-                AOn.color = Color.red;
+                if (debug_mode)
+                    AOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -266,7 +267,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[1]].Stop();
-                SOn.color = Color.red;
+                if (debug_mode)
+                    SOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -278,7 +280,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[2]].Stop();
-                DOn.color = Color.red;
+                if (debug_mode)
+                    DOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -290,7 +293,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[3]].Stop();
-                FOn.color = Color.red;
+                if (debug_mode)
+                    FOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.G))
             {
@@ -302,7 +306,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[4]].Stop();
-                GOn.color = Color.red;
+                if (debug_mode)
+                    GOn.color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
@@ -314,7 +319,8 @@ public class GVarHandler : MonoBehaviour
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[5]].Stop();
-                HOn.color = Color.red;
+                if (debug_mode)
+                    HOn.color = Color.red;
             }
         }
 

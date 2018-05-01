@@ -6,6 +6,12 @@ using UnityEngine;
 public class Action : MonoBehaviour {
 
     Personality personality;
+    HealthScript health;
+    StaminaScript stamina;
+    movement movement;
+    public bool amBard = false;
+
+    public long cooldown = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -14,94 +20,99 @@ public class Action : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        switch (personality.attitude)
+        if (cooldown < 5)
         {
-            case "Terrified":
-                //retreat
-                Debug.Log("Terrified- retreating if possible");
-                retreat();
-                break;
-            case "Curious":
-                //safe attack
-                Debug.Log("Curious- normal attack");
-                attack();
-                break;
-            case "Defeated":
-                //defense
-                Debug.Log("Defeated- defending");
-                defend();
-                break;
-            case "Determined":
-                //reckless attack
-                Debug.Log("Determined- reckless attack");
-                reckless_attack();
-                break;
-            case "Alert":
-                //defense
-                Debug.Log("Alert- defending");
-                defend();
-                break;
-            case "Cautious":
-                //safe attack
-                Debug.Log("Cautious- normal attack");
-                attack();
-                break;
-            case "Relenting":
-                //mercy
-                Debug.Log("Relenting - have mercy");
-                mercy();
-                break;
-            case "Victorious":
-                //strong attack
-                Debug.Log("Victorious - strong attack");
-                strong_attack();
-                break;
-            case "Nervous":
-                //stay in place
-                Debug.Log("Nervous - stay put");
-                stay();
-                break;
-            case "Foreboding":
-                //enter battle
-                Debug.Log("Foreboding- enter battle");
-                battle();
-                break;
-            case "Hopeless":
-                //avoid battle
-                Debug.Log("Hopeless- avoid battle");
-                avoid_battle();
-                break;
-            case "Determination":
-                //onwards
-                Debug.Log("Determination- move forward");
-                move();
-                break;
-            case "Hopeful":
-                //avoid battle
-                Debug.Log("Hopeful- avoid battle");
-                avoid_battle();
-                break;
-            case "Excited":
-                //enter battle
-                Debug.Log("Excited- enter battle");
-                battle();
-                break;
-            case "Content":
-                //stay
-                Debug.Log("Content- stay put");
-                stay();
-                break;
-            case "Elated":
-                //shop
-                Debug.Log("Elated- shop");
-                shop();
-                break;
-            case "":
-                //No emotion
-                Debug.Log("ERROR: No Emotion");
-                break;
+            switch (personality.attitude)
+            {
+                case "Terrified":
+                    //retreat
+                    Debug.Log("Terrified- retreating if possible");
+                    retreat();
+                    break;
+                case "Curious":
+                    //safe attack
+                    Debug.Log("Curious- normal attack");
+                    attack();
+                    break;
+                case "Defeated":
+                    //defense
+                    Debug.Log("Defeated- defending");
+                    defend();
+                    break;
+                case "Determined":
+                    //reckless attack
+                    Debug.Log("Determined- reckless attack");
+                    reckless_attack();
+                    break;
+                case "Alert":
+                    //defense
+                    Debug.Log("Alert- defending");
+                    defend();
+                    break;
+                case "Cautious":
+                    //safe attack
+                    Debug.Log("Cautious- normal attack");
+                    attack();
+                    break;
+                case "Relenting":
+                    //mercy
+                    Debug.Log("Relenting - have mercy");
+                    mercy();
+                    break;
+                case "Victorious":
+                    //strong attack
+                    Debug.Log("Victorious - strong attack");
+                    strong_attack();
+                    break;
+                case "Nervous":
+                    //stay in place
+                    Debug.Log("Nervous - stay put");
+                    stay();
+                    break;
+                case "Foreboding":
+                    //enter battle
+                    Debug.Log("Foreboding- enter battle");
+                    battle();
+                    break;
+                case "Hopeless":
+                    //avoid battle
+                    Debug.Log("Hopeless- avoid battle");
+                    avoid_battle();
+                    break;
+                case "Determination":
+                    //onwards
+                    Debug.Log("Determination- move forward");
+                    move();
+                    break;
+                case "Hopeful":
+                    //avoid battle
+                    Debug.Log("Hopeful- avoid battle");
+                    avoid_battle();
+                    break;
+                case "Excited":
+                    //enter battle
+                    Debug.Log("Excited- enter battle");
+                    battle();
+                    break;
+                case "Content":
+                    //stay
+                    Debug.Log("Content- stay put");
+                    stay();
+                    break;
+                case "Elated":
+                    //shop
+                    Debug.Log("Elated- shop");
+                    shop();
+                    break;
+                case "":
+                    //No emotion
+                    Debug.Log("ERROR: No Emotion");
+                    break;
 
+            }
+            cooldown = 500;
         }
+        else { cooldown--; }
         
 	}
 
@@ -114,39 +125,66 @@ public class Action : MonoBehaviour {
         }
         else
         {
-            
+            SceneTransitionManager.moveAlong();
         }
-        throw new NotImplementedException();
     }
 
     //Moves on
     private void move()
     {
-        throw new NotImplementedException();
+        SceneTransitionManager.moveAlong();
     }
 
     //Stays put and reduces total tension. Heals if unmoving.
     private void avoid_battle()
     {
-        throw new NotImplementedException();
+        if (SceneTransitionManager.timeStandsStill())
+        {
+            if (amBard)
+            {
+                health.takeDamage(-3);
+            }
+            else
+            {
+                stamina.useStamina(-3);
+            }
+        }
     }
 
     //If battle is available, enters battle. If unavailable, moves on.
     private void battle()
     {
-        throw new NotImplementedException();
+        if (!SceneTransitionManager.givesYouHell())
+        {
+            SceneTransitionManager.moveAlong();
+        }
     }
 
     //Stays put. If stopped, seeks rest/healing
     private void stay()
     {
-        throw new NotImplementedException();
+        if (amBard)
+        {
+            health.takeDamage(-3);
+        }
+        else
+        {
+            stamina.useStamina(-3);
+        }
     }
 
     //Strong attack- costs stamina, but does like 2 damage.
     private void strong_attack()
     {
-        throw new NotImplementedException();
+        if (!amBard)
+        {
+            System.Random rand = new System.Random();
+            Sprite enemy = GAMESTATS.enemies[rand.Next(GAMESTATS.enemies.Length) - 1];
+            if (true) /*replace this with a check to see if enemy is alive */
+            {
+                movement.moveTo(new Vector2(enemy.bounds.extents.x, enemy.bounds.extents.y));
+            }
+        }
     }
 
     //No attack, defend bonus. If the enemy can't attack, ends battle.

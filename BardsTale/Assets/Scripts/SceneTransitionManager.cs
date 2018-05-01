@@ -4,8 +4,23 @@ using UnityEngine;
 
 public static class SceneTransitionManager {
 
-    static void sceneTransition(string currentScene)
+    public static bool moveAlong()
     {
-        
+        return false;
+    }
+
+    public static bool timeStandsStill()
+    {
+        return false;
+    }
+
+    public static bool givesYouHell()
+    {
+        return false;
+    }
+
+    public static bool sceneTransition()
+    {
+        return false;
     }
 }
