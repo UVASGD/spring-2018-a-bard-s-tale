@@ -1,0 +1,20 @@
+{ "frames": {
+   "forest background.ase": {
+    "frame": { "x": 0, "y": 0, "w": 2000, "h": 300 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 2000, "h": 300 },
+    "sourceSize": { "w": 2000, "h": 300 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.8",
+  "format": "RGBA8888",
+  "size": { "w": 2000, "h": 300 },
+  "scale": "1",
+  "frameTags": [
+  ]
+ }
+}

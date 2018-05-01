@@ -1,0 +1,20 @@
+{ "frames": {
+   "hazyboulder2.ase": {
+    "frame": { "x": 0, "y": 0, "w": 340, "h": 600 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 340, "h": 600 },
+    "sourceSize": { "w": 340, "h": 600 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.1.8",
+  "format": "RGBA8888",
+  "size": { "w": 340, "h": 600 },
+  "scale": "1",
+  "frameTags": [
+  ]
+ }
+}
