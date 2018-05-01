@@ -1597,6 +1597,7 @@ GameObject:
   - component: {fileID: 1403614280}
   - component: {fileID: 1403614279}
   - component: {fileID: 1403614281}
+  - component: {fileID: 1403614282}
   m_Layer: 0
   m_Name: Wolf1
   m_TagString: Enemy
@@ -1646,7 +1647,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!4 &1403614280
 Transform:
@@ -1672,8 +1673,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 0
   healthSlider: {fileID: 1815857374}
   maxHealth: 0
+--- !u!114 &1403614282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403614278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
 --- !u!1 &1474617988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1698,7 @@ GameObject:
   - component: {fileID: 1474617990}
   - component: {fileID: 1474617989}
   - component: {fileID: 1474617991}
+  - component: {fileID: 1474617992}
   m_Layer: 0
   m_Name: Wolf2
   m_TagString: Enemy
@@ -1733,7 +1748,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!4 &1474617990
 Transform:
@@ -1759,8 +1774,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 0
   healthSlider: {fileID: 1195941676}
   maxHealth: 0
+--- !u!114 &1474617992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474617988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
 --- !u!1 &1482251077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1800,7 @@ GameObject:
   - component: {fileID: 1482251078}
   - component: {fileID: 1482251081}
   - component: {fileID: 1482251080}
+  - component: {fileID: 1482251082}
   m_Layer: 0
   m_Name: Barbarian
   m_TagString: Ally
@@ -1821,7 +1850,7 @@ SpriteRenderer:
   m_Size: {x: 0.96, y: 0.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!4 &1482251079
 Transform:
@@ -1858,8 +1887,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aba71fb1f85cc440980d372979eba99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 0
   staminaSlider: {fileID: 660454554}
   maxStamina: 0
+--- !u!114 &1482251082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1482251077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
 --- !u!1 &1503143407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +1911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1503143408}
   - component: {fileID: 1503143409}
+  - component: {fileID: 1503143410}
   m_Layer: 0
   m_Name: Bard
   m_TagString: Player
@@ -1883,8 +1926,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1503143407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.62, y: -0.25, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -4.92, y: -0.9, z: 0}
+  m_LocalScale: {x: 0.359396, y: 0.43016738, z: 1}
   m_Children: []
   m_Father: {fileID: 7332492}
   m_RootOrder: 2
@@ -1923,16 +1966,28 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e8a897727a111294ca31aab4d075f5c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c7c35b3a122efa34abb0f4eaff4cc3d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 12, y: 9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1503143410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503143407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
 --- !u!1 &1815857372
 GameObject:
   m_ObjectHideFlags: 0

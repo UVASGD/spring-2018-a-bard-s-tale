@@ -9,6 +9,8 @@ public class BattleController : MonoBehaviour
     public GameObject[] allies;
     public GameObject[] enemies;
 
+    public bool debug_mode = false;
+
 	// Use this for initialization
 	void Start () {
         allies = GAMESTATS.friends;
@@ -32,6 +34,12 @@ public class BattleController : MonoBehaviour
         int totalAllyHealth = 0;
         int maxAllyHealth = 1;
         float AllyHealthRatio = 0.0f;
+        if (debug_mode)
+        {
+            Debug.Log("This many allies: " + allies.Length);
+            Debug.Log("Gamestats says there are " + GAMESTATS.friends.Length + " allies.");
+        }
+        
         for (int i = 0; i < allies.Length; i++)
         {
             if (allies[i].GetComponent<Action>().havingMercy == false)
