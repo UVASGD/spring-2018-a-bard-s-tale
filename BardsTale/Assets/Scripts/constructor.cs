@@ -8,6 +8,7 @@ public class constructor : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("Constructor method called, enemy is :" + enemy);
 		if (enemy)
         {
             GameObject[] temp = new GameObject[GAMESTATS.enemies.Length + 1];
