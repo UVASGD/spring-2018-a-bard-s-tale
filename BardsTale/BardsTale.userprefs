@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="BardsTale.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\User Input\Chord.cs">
+    <Files>
+      <File FileName="Assets\User Input\Chord.cs" Line="1" Column="1" />
+      <File FileName="Assets\User Input\PlayerInput.cs" Line="1" Column="1" />
+      <File FileName="Assets\User Input\BitString.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
