@@ -5,24 +5,30 @@ using UnityEngine;
 
 public class Action : MonoBehaviour {
 
-    Personality personality;
-    HealthScript health;
-    StaminaScript stamina;
-    movement movement;
-    public bool amBard = false;
+    public bool amBard;
+    public bool havingMercy;
+    public bool retreating;
+
+    public bool staying;
+    public bool aggro;
 
     public long cooldown = 0;
 
-	// Use this for initialization
-	void Start () {
-        personality = new Personality();
-	}
+    // Use this for initialization
+    void Start()
+    {
+        bool havingMercy = false;
+        bool retreating = false;
+        bool staying = false;
+        bool aggro = false;
+    }
+
 	
 	// Update is called once per frame
 	void Update () {
         if (cooldown < 5)
         {
-            switch (personality.attitude)
+            switch (GetComponent<Personality>().attitude)
             {
                 case "Terrified":
                     //retreat
@@ -125,64 +131,63 @@ public class Action : MonoBehaviour {
         }
         else
         {
-            SceneTransitionManager.moveAlong();
+            staying = false;
         }
     }
 
     //Moves on
     private void move()
     {
-        SceneTransitionManager.moveAlong();
+        staying = false;
     }
 
     //Stays put and reduces total tension. Heals if unmoving.
     private void avoid_battle()
     {
-        if (SceneTransitionManager.timeStandsStill())
+        staying = true;
+        if (amBard)
         {
-            if (amBard)
-            {
-                health.takeDamage(-3);
-            }
-            else
-            {
-                stamina.useStamina(-3);
-            }
+            GetComponent<HealthScript>().takeDamage(-1);
+        }
+        else
+        {
+            GetComponent<StaminaScript>().useStamina(-1);
         }
     }
 
     //If battle is available, enters battle. If unavailable, moves on.
     private void battle()
     {
-        if (!SceneTransitionManager.givesYouHell())
-        {
-            SceneTransitionManager.moveAlong();
-        }
+        aggro = true;
     }
 
     //Stays put. If stopped, seeks rest/healing
     private void stay()
     {
+        staying = true;
         if (amBard)
         {
-            health.takeDamage(-3);
+            GetComponent<HealthScript>().takeDamage(-1);
         }
         else
         {
-            stamina.useStamina(-3);
+            GetComponent<StaminaScript>().useStamina(-1);
         }
     }
 
     //Strong attack- costs stamina, but does like 2 damage.
     private void strong_attack()
     {
+        retreating = false;
+        havingMercy = false;
         if (!amBard)
         {
             System.Random rand = new System.Random();
-            Sprite enemy = GAMESTATS.enemies[rand.Next(GAMESTATS.enemies.Length) - 1];
+            GameObject enemy = GAMESTATS.enemies[rand.Next(GAMESTATS.enemies.Length) - 1];
             if (true) /*replace this with a check to see if enemy is alive */
             {
-                movement.moveTo(new Vector2(enemy.bounds.extents.x, enemy.bounds.extents.y));
+                GetComponent<movement>().moveTo(new Vector2(enemy.transform.position.x, enemy.transform.position.y));
+                GetComponent<BarbarianScript>().heavyAttack(enemy);
             }
         }
     }
@@ -190,30 +195,67 @@ public class Action : MonoBehaviour {
     //No attack, defend bonus. If the enemy can't attack, ends battle.
     private void mercy()
     {
-        throw new NotImplementedException();
+        retreating = false;
+        if (!amBard)
+        {
+            GetComponent<BarbarianScript>().defend();
+        }
+        havingMercy = true;
     }
 
     //All-out attack- costs same stamina as normal attack, but either does 2 or 0 damage.
     private void reckless_attack()
     {
-        throw new NotImplementedException();
+        retreating = false;
+        havingMercy = false;
+        if (!amBard)
+        {
+            System.Random rand = new System.Random();
+            GameObject enemy = GAMESTATS.enemies[rand.Next(GAMESTATS.enemies.Length) - 1];
+            if (true) /*replace this with a check to see if enemy is alive */
+            {
+                GetComponent<movement>().moveTo(new Vector2(enemy.transform.position.x, enemy.transform.position.y));
+                GetComponent<BarbarianScript>().recklessAttack(enemy);
+            }
+        }
     }
 
     //No action- restores stamina, prompts blocks
     private void defend()
     {
-        throw new NotImplementedException();
+        retreating = false;
+        havingMercy = false;
+        if (!amBard)
+        {
+            GetComponent<BarbarianScript>().defend();
+        }
     }
 
     //Costs 1 stamina, does 1 damage. Simple attack.
     private void attack()
     {
-        throw new NotImplementedException();
+        retreating = false;
+        havingMercy = false;
+        if (!amBard)
+        {
+            System.Random rand = new System.Random();
+            GameObject enemy = GAMESTATS.enemies[rand.Next(GAMESTATS.enemies.Length) - 1];
+            if (true) /*replace this with a check to see if enemy is alive */
+            {
+                GetComponent<movement>().moveTo(new Vector2(enemy.transform.position.x, enemy.transform.position.y));
+                GetComponent<BarbarianScript>().recklessAttack(enemy);
+            }
+        }
     }
 
     //No action. If alive next turn, ends battle.
     private void retreat()
     {
-        throw new NotImplementedException();
+        havingMercy = false;
+        if (!amBard)
+        {
+            GetComponent<BarbarianScript>().defend();
+        }
+        retreating = true;
     }
 }

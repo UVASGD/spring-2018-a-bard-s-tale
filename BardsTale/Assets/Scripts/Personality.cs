@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Personality : MonoBehaviour {
-	public GVarHandler pScore;
 
     public float oMod = 0.0f;
     public float gMod = 0.0f;

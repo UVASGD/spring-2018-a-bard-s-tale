@@ -58,8 +58,8 @@ public static class GAMESTATS   {
     public static bool inBattle = false;
     public static bool isShop = false;
 
-    public static Sprite[] enemies = new Sprite[] { };
-    public static Sprite[] friends = new Sprite[] { };
+    public static GameObject[] enemies = new GameObject[] { };
+    public static GameObject[] friends = new GameObject[] { };
 
     public static string currentScene = "";
     public static string[] scenesList = new string[] { "forest_C1", "forest_B1", "forest_C2", "forest_O1", "forest_B2", "forest_O2", "forest_B3", "forest_B4", "cave_C1"};

@@ -6,6 +6,8 @@ public class BarbarianScript : MonoBehaviour
 {
     private StaminaScript stamina;
 
+    private bool defending = false;
+
     private int basicAttackStam = 0;
     private int basicAttackDmg = 1;
 
@@ -24,8 +26,14 @@ public class BarbarianScript : MonoBehaviour
         currAttackCoolDown = attackCoolDown;
     }
 
+    public void defend()
+    {
+        defending = true;
+    }
+
     public void basicAttack(GameObject target)
     {
+        defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(basicAttackDmg);
         stamina.useStamina(basicAttackStam);
@@ -33,6 +41,7 @@ public class BarbarianScript : MonoBehaviour
 
     public void heavyAttack(GameObject target)
     {
+        defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(heavyAttackDmg);
         stamina.useStamina(heavyAttackStam);
@@ -40,6 +49,7 @@ public class BarbarianScript : MonoBehaviour
 
     public void recklessAttack(GameObject target)
     {
+        defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(recklessAttackDmg);
         stamina.useStamina(recklessAttackStam);

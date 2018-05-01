@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StaminaScript : MonoBehaviour
 {
+    public bool doingSlider = false;
     public Slider staminaSlider;
 
     public int maxStamina;
@@ -17,10 +18,12 @@ public class StaminaScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        staminaSlider.maxValue = maxStamina;
+        if (doingSlider)
+        {
+            staminaSlider.maxValue = maxStamina;
+            staminaSlider.value = maxStamina;
+        }
         currStamina = maxStamina;
-
-        staminaSlider.value = currStamina;
 
         currStamRecharge = stamRecharge;
     }
@@ -33,7 +36,8 @@ public class StaminaScript : MonoBehaviour
             if (currStamRecharge < 0)
             {
                 currStamina += 1;
-                staminaSlider.value = currStamina;
+                if (doingSlider)
+                    staminaSlider.value = currStamina;
                 currStamRecharge = stamRecharge;
             }
             else
@@ -45,7 +49,20 @@ public class StaminaScript : MonoBehaviour
 
     public void useStamina(int stam)
     {
-        currStamina -= stam;
-        staminaSlider.value = currStamina;
+        if (stam != -1)
+        {
+            currStamina -= stam;
+        }
+        else
+        {
+            currStamina = maxStamina;
+        }
+        if (doingSlider)
+            staminaSlider.value = currStamina;
+    }
+
+    public int[] getStaminaStats()
+    {
+        return new int[] { currStamina, maxStamina };
     }
 }

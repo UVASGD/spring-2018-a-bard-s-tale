@@ -5,55 +5,210 @@ using UnityEngine.UI;
 
 public class ModifiedGVar : MonoBehaviour {
 
-	// Keybindings data
-	public Canvas ui;
-	//Hotbar-related fields
-	private Image[] onArray;
-	private Text[] valArray;
-	private GameObject hotbar;
-	private bool hidden;
+    // Keybindings data
+    public Canvas ui;
+    //Hotbar-related fields
+    private Image[] onArray;
+    private Text[] valArray;
+    private GameObject hotbar;
+    private bool hidden;
 
-	//Slider fields
-	public Slider TSlide;
-	public Slider VSlide;
-	//Momentum Bar
-	public Image momentumBar;
+    //Slider fields
+    public Slider TSlide;
+    public Slider VSlide;
+    //Momentum Bar
+    public Image momentumBar;
 
-	//Health fields
-	private Sprite fullHeart;
-	private Sprite emptyHeart;
-	private Image[] hearts;
-	private const int maxHearts = 3;
-	private int currHeart;
+    //Health fields
+    private Sprite fullHeart;
+    private Sprite emptyHeart;
+    private Image[] hearts;
+    private const int maxHearts = 3;
+    private int currHeart;
+    private AudioCollector Audio;
+    private int prevChord = -1;
 
-	// Use this for initialization
-	void Start () {
+    // miscellaneous Gvar Adaptation fields
+    public bool debug_mode = false;
+    #region debug_fields
+    public Text LPC;
+
+        public Text Freq;
+        public Text Ten;
+        public Text Ton;
+
+        public Text Tempo;
+        public Text Volume;
+
+        public Text Outlook;
+        public Text Agency;
+        public Text Assurance;
+
+        public Text ATT;
+    #endregion
+
+    //some more fields brought over from GVar
+    #region properties
+    private float frequency;
+    private float tension;
+    private float tone;
+    private float tempo;
+    private float volume;
+
+    private int cooldown = 0;
+    private int coolValue = 5;
+    private bool isPlaying = false;
+    private int stopcooldown = 30;
+    private int stopcoolvalue = 30;
+    private float lastTime = 0.001f;
+    #endregion
+
+    // Use this for initialization
+    void Start () {
 		initHearts();
 		initSlides(); //set sliders and momentum bar
 		initHotbar();
+
+        Audio = GetComponent<AudioCollector>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		updateHotbar();//Changes sprites to red or green accordingly
 
-		//The following are just for testing
-		if (Input.GetKeyDown(KeyCode.E)) {
-			changeMomentum(.1f);
-		}
+        //The following are just for testing
+        if (debug_mode)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                changeMomentum(.1f);
+            }
 
-		if(Input.GetKeyDown(KeyCode.W)) {
-			changeMomentum(-.1f);
-		}
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                changeMomentum(-.1f);
+            }
 
-		if(Input.GetKeyDown(KeyCode.Z)) {
-			damage();
-		}
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                damage();
+            }
 
-		if(Input.GetKeyDown(KeyCode.X)) {
-			heal();
-		}
-	}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                heal();
+            }
+        }
+
+        if (isPlaying)
+        {
+            stopcooldown--;
+        }
+        cooldown--;
+        if (cooldown > 0)
+        {
+            Debug.Log(cooldown + "");
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                playChord(onArray[0], GAMESTATS.possChords[GAMESTATS.chosenChords[0]], GAMESTATS.chosenChords[0]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[0]].Stop();
+                if (debug_mode)
+                    onArray[0].color = Color.red;
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                playChord(onArray[1], GAMESTATS.possChords[GAMESTATS.chosenChords[1]], GAMESTATS.chosenChords[1]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[1]].Stop();
+                if (debug_mode)
+                    onArray[1].color = Color.red;
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                playChord(onArray[2], GAMESTATS.possChords[GAMESTATS.chosenChords[2]], GAMESTATS.chosenChords[2]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[2]].Stop();
+                if (debug_mode)
+                    onArray[2].color = Color.red;
+            }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                playChord(onArray[3], GAMESTATS.possChords[GAMESTATS.chosenChords[3]], GAMESTATS.chosenChords[3]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[3]].Stop();
+                if (debug_mode)
+                    onArray[3].color = Color.red;
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                playChord(onArray[4], GAMESTATS.possChords[GAMESTATS.chosenChords[4]], GAMESTATS.chosenChords[4]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[4]].Stop();
+                if (debug_mode)
+                   onArray[4].color = Color.red;
+            }
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                playChord(onArray[5], GAMESTATS.possChords[GAMESTATS.chosenChords[5]], GAMESTATS.chosenChords[5]);
+                cooldown = coolValue;
+                stopcooldown = stopcoolvalue;
+            }
+            else
+            {
+                if (stopcooldown < 0)
+                    Audio.clips[GAMESTATS.chosenChords[5]].Stop();
+                if (debug_mode)
+                    onArray[5].color = Color.red;
+            }
+        }
+
+        GAMESTATS.volume = volume;
+
+        for (int i = 0; i < 24; ++i)
+        {
+            Audio.clips[i].volume = GAMESTATS.volume;
+        }
+
+        tempo = TSlide.value * 240;
+        GAMESTATS.tempo = tempo;
+        volume = VSlide.value;
+        GAMESTATS.volume = volume;
+        if (debug_mode)
+        {
+            Tempo.text = "" + tempo;
+            Volume.text = "" + volume;
+        }
+
+    }
 
 	//Initialization methods
 	private void initHotbar() {
@@ -88,12 +243,72 @@ public class ModifiedGVar : MonoBehaviour {
 	}
 
 	private void initSlides() {
-		momentumBar.fillAmount = 0.5f;
+        if (GAMESTATS.isBattle)
+        {
+            momentumBar.fillAmount = 0.5f;
+        }
+		
 		TSlide = ui.transform.Find("Tempo/Tempo Slider").gameObject.GetComponent<Slider>();
 		VSlide = ui.transform.Find("Volume/Volume Slider").gameObject.GetComponent<Slider>();
 	}
 
-	private void updateHotbar() {
+    // update methods
+    private void playChord(Image on, string text, int index)
+    {
+        if (debug_mode)
+            on.color = Color.green;
+
+        string chordPlayed = text;
+
+        //set tone
+        tone += (GAMESTATS.tones[index] / 10);
+        if (tone > 10)
+        {
+            tone = 10;
+        }
+        else if (tone < -10)
+        {
+            tone = -10;
+        }
+        GAMESTATS.tone = tone;
+        if (debug_mode)
+            Ton.text = "" + tone;
+
+        //set tension
+        if (prevChord == -1)
+        {
+            tension = tension + GAMESTATS.tensions[0, index];
+        }
+        else
+        {
+            tension = tension + GAMESTATS.tensions[prevChord, index];
+        }
+        if (tension < 0)
+            tension = 0;
+        if (tension > 20)
+            tension = 20;
+        if (debug_mode)
+            Ten.text = "" + tension;
+        GAMESTATS.tension = tension;
+
+        //set freq
+        float deltTime = Time.time - lastTime;
+        lastTime = Time.time;
+        frequency = (tempo - 240 * deltTime) / (tempo);
+        if (frequency < 0)
+            frequency = 0;
+        if (debug_mode)
+            Freq.text = "" + frequency;
+        GAMESTATS.frequency = frequency;
+
+        //set LPC
+        if (debug_mode)
+            LPC.text = text;
+        prevChord = index;
+        Audio.clips[index].Play();
+    }
+
+    private void updateHotbar() {
 		//Hotbar is pressed down
 		if(Input.GetKeyDown(KeyCode.A)) {
 			onArray[0].color = Color.green;
