@@ -14,8 +14,8 @@ public class constructor : MonoBehaviour {
             for (int i = 0; i < GAMESTATS.enemies.Length; i++)
             {
                 temp[i] = GAMESTATS.enemies[i];
-                temp[i + 1] = gameObject;
             }
+            temp[GAMESTATS.enemies.Length] = gameObject;
             GAMESTATS.enemies = temp;
         }
         else
@@ -24,14 +24,14 @@ public class constructor : MonoBehaviour {
             for (int i = 0; i < GAMESTATS.friends.Length; i++)
             {
                 temp[i] = GAMESTATS.friends[i];
-                temp[i + 1] = gameObject;
             }
+            temp[GAMESTATS.friends.Length] = gameObject;
             GAMESTATS.friends = temp;
         }
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }
