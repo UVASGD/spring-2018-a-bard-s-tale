@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: c7c35b3a122efa34abb0f4eaff4cc3d1, type: 3}
-  - {fileID: 21300000, guid: bf76920f574fe8843a1f9e5937a76c8a, type: 3}
+  - {fileID: 21300000, guid: ded99fae5b60847d6bd8fef2e224c7ca, type: 3}
+  - {fileID: 21300000, guid: c462d518ec4d7495cb368977111e7417, type: 3}
   nextScene: 
   currentImage: {fileID: 794603365}
   texts:
