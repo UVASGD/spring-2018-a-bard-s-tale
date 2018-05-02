@@ -18,6 +18,7 @@ public class constructor : MonoBehaviour {
             }
             temp[GAMESTATS.enemies.Length] = gameObject;
             GAMESTATS.enemies = temp;
+            GAMESTATS.isBattle = true;
         }
         else
         {

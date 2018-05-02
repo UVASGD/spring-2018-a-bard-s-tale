@@ -9,7 +9,7 @@ public class MoveCamera : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		following = this.GetComponentInChildren<Camera>();
-		following.transform.Translate(new Vector3(-7f,0f,0f));
+		//following.transform.Translate(new Vector3(-7f,0f,0f));
 		facingRight=true;
 	}
 

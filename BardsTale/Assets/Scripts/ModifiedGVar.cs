@@ -107,7 +107,7 @@ public class ModifiedGVar : MonoBehaviour {
         cooldown--;
         if (cooldown > 0)
         {
-            Debug.Log(cooldown + "");
+            //Debug.Log(cooldown + "");
         }
         else
         {

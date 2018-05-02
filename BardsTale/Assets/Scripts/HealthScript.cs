@@ -10,8 +10,8 @@ public class HealthScript : MonoBehaviour
 
     public int maxHealth;
 
-    private int currHealth;
-    private bool dead;
+    public int currHealth;
+    public bool dead;
 
     // Use this for initialization
     void Start()
