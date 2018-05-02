@@ -189,7 +189,7 @@ public class Action : MonoBehaviour {
             if (enemy.GetComponent<HealthScript>().dead) /*replace this with a check to see if enemy is alive */
             {
                 //GetComponent<movement>().moveTo(new Vector2(enemy.transform.position.x, enemy.transform.position.y));
-                GetComponent<BarbarianScript>().heavyAttack(enemy);
+                GetComponent<Ally>().heavyAttack(enemy);
             }
         }
     }
@@ -200,7 +200,7 @@ public class Action : MonoBehaviour {
         retreating = false;
         if (!amBard)
         {
-            GetComponent<BarbarianScript>().defend();
+            GetComponent<Ally>().defend();
         }
         havingMercy = true;
     }
@@ -216,7 +216,7 @@ public class Action : MonoBehaviour {
             if (enemy.GetComponent<HealthScript>().dead) /*replace this with a check to see if enemy is alive */
             {
                 //GetComponent<movement>().moveTo(new Vector2(enemy.transform.position.x, enemy.transform.position.y));
-                GetComponent<BarbarianScript>().recklessAttack(enemy);
+                GetComponent<Ally>().recklessAttack(enemy);
             }
         }
     }
@@ -228,29 +228,29 @@ public class Action : MonoBehaviour {
         havingMercy = false;
         if (!amBard)
         {
-            GetComponent<BarbarianScript>().defend();
+            GetComponent<Ally>().defend();
         }
     }
 
     //Costs 1 stamina, does 1 damage. Simple attack.
     private void attack()
     {
-        Debug.Log("Normal attack: beginning");
+        //Debug.Log("Normal attack: beginning");
         retreating = false;
         havingMercy = false;
         if (!amBard)
         {
-            Debug.Log("Normal attack: not bard");
+            //Debug.Log("Normal attack: not bard");
             GameObject enemy = GAMESTATS.enemies[(int)UnityEngine.Random.Range(0.0f, GAMESTATS.enemies.Length)];
-            Debug.Log("Enemy is: " + enemy);
+            //Debug.Log("Enemy is: " + enemy);
             if (true) /*replace this with a check to see if enemy is alive */
             {
-                Debug.Log("Attacking");
+                //Debug.Log("Attacking");
                 Vector2 initialPos = new Vector2(transform.position.x, transform.position.y);
                 float check = enemy.transform.position.x;
                 Vector2 position = new Vector2(enemy.transform.position.x, enemy.transform.position.y);
                 //GetComponent<movement>().moveTo(position);
-                GetComponent<BarbarianScript>().basicAttack(enemy);
+                GetComponent<Ally>().basicAttack(enemy);
                 //GetComponent<movement>().moveTo(initialPos);
             }
         }
@@ -262,7 +262,7 @@ public class Action : MonoBehaviour {
         havingMercy = false;
         if (!amBard)
         {
-            GetComponent<BarbarianScript>().defend();
+            GetComponent<Ally>().defend();
         }
         retreating = true;
     }

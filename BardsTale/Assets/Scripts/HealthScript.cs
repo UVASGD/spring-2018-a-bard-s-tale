@@ -10,8 +10,10 @@ public class HealthScript : MonoBehaviour
 
     public int maxHealth;
 
-    public int currHealth;
+    private int currHealth;
     public bool dead;
+
+    Action action;
 
     // Use this for initialization
     void Start()
@@ -23,6 +25,7 @@ public class HealthScript : MonoBehaviour
         }
         currHealth = maxHealth;
         dead = false;
+        action = GetComponent<Action>();
     }
 
     public void takeDamage(int dmg)
@@ -34,9 +37,13 @@ public class HealthScript : MonoBehaviour
                 currHealth -= dmg;
                 if (doingSlider)
                     healthSlider.value = currHealth;
-                if (currHealth < 0)
+                if (currHealth <= 0)
                 {
                     dead = true;
+                    if (GetComponent<NPCScript>() != null)
+                    {
+                        GetComponent<NPCScript>().kill();
+                    }
                 }
             }
             else
