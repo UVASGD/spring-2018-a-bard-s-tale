@@ -33,6 +33,7 @@ public class BarbarianScript : MonoBehaviour
 
     public void basicAttack(GameObject target)
     {
+        Debug.Log(this.name + " Basic Attack " + target.name);
         defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(basicAttackDmg);
@@ -41,6 +42,7 @@ public class BarbarianScript : MonoBehaviour
 
     public void heavyAttack(GameObject target)
     {
+        Debug.Log(this.name + " Heavy Attack " + target.name);
         defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(heavyAttackDmg);
@@ -49,6 +51,7 @@ public class BarbarianScript : MonoBehaviour
 
     public void recklessAttack(GameObject target)
     {
+        Debug.Log(this.name + " Reckless Attack " + target.name);
         defending = false;
         HealthScript targetHealth = target.GetComponent<HealthScript>();
         targetHealth.takeDamage(recklessAttackDmg);

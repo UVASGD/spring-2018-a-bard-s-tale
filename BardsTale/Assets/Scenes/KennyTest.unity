@@ -1597,6 +1597,9 @@ GameObject:
   - component: {fileID: 1403614280}
   - component: {fileID: 1403614279}
   - component: {fileID: 1403614281}
+  - component: {fileID: 1403614282}
+  - component: {fileID: 1403614283}
+  - component: {fileID: 1403614284}
   m_Layer: 0
   m_Name: Wolf1
   m_TagString: Enemy
@@ -1638,12 +1641,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e842ae72ce524fe4d8e0ee5801994bb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf76920f574fe8843a1f9e5937a76c8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 12, y: 6.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1655,8 +1658,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1403614278}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.7642865, y: -1.1265805, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 3.5, y: -1.17, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 1196525203}
   m_RootOrder: 0
@@ -1672,8 +1675,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 1
   healthSlider: {fileID: 1815857374}
-  maxHealth: 0
+  maxHealth: 2
+--- !u!114 &1403614282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403614278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 1
+--- !u!114 &1403614283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403614278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afb9e92a829c814f9dad27cbd7c16b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amBard: 0
+  havingMercy: 0
+  retreating: 0
+  staying: 0
+  aggro: 0
+  cooldown: 0
+--- !u!114 &1403614284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1403614278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aec7378ff209504383442c779586fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oMod: 0
+  gMod: 0
+  aMod: 0
+  attitude: 
 --- !u!1 &1474617988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,6 +1732,9 @@ GameObject:
   - component: {fileID: 1474617990}
   - component: {fileID: 1474617989}
   - component: {fileID: 1474617991}
+  - component: {fileID: 1474617992}
+  - component: {fileID: 1474617993}
+  - component: {fileID: 1474617994}
   m_Layer: 0
   m_Name: Wolf2
   m_TagString: Enemy
@@ -1725,12 +1776,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e842ae72ce524fe4d8e0ee5801994bb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf76920f574fe8843a1f9e5937a76c8a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 12, y: 6.3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1742,8 +1793,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1474617988}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.694287, y: 0.67341954, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: 7.47, y: 0.56, z: 0}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 1196525203}
   m_RootOrder: 1
@@ -1759,8 +1810,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 1
   healthSlider: {fileID: 1195941676}
-  maxHealth: 0
+  maxHealth: 2
+--- !u!114 &1474617992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474617988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 1
+--- !u!114 &1474617993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474617988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afb9e92a829c814f9dad27cbd7c16b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amBard: 0
+  havingMercy: 0
+  retreating: 0
+  staying: 0
+  aggro: 0
+  cooldown: 0
+--- !u!114 &1474617994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474617988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aec7378ff209504383442c779586fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oMod: 0
+  gMod: 0
+  aMod: 0
+  attitude: 
 --- !u!1 &1482251077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,6 +1868,9 @@ GameObject:
   - component: {fileID: 1482251078}
   - component: {fileID: 1482251081}
   - component: {fileID: 1482251080}
+  - component: {fileID: 1482251082}
+  - component: {fileID: 1482251083}
+  - component: {fileID: 1482251084}
   m_Layer: 0
   m_Name: Barbarian
   m_TagString: Ally
@@ -1813,12 +1912,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e0fd8ae455bbf04e96d39dfeea73310, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9741917c630468342b2cfb1cc3eef96a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 6.35, y: 4.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1831,7 +1930,7 @@ Transform:
   m_GameObject: {fileID: 1482251077}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.4157133, y: -0.6165804, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1883360760}
   m_RootOrder: 0
@@ -1858,8 +1957,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aba71fb1f85cc440980d372979eba99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doingSlider: 1
   staminaSlider: {fileID: 660454554}
-  maxStamina: 0
+  maxStamina: 4
+--- !u!114 &1482251082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1482251077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
+--- !u!114 &1482251083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1482251077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afb9e92a829c814f9dad27cbd7c16b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amBard: 0
+  havingMercy: 0
+  retreating: 0
+  staying: 0
+  aggro: 0
+  cooldown: 0
+--- !u!114 &1482251084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1482251077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aec7378ff209504383442c779586fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oMod: 0
+  gMod: 0
+  aMod: 0
+  attitude: 
 --- !u!1 &1503143407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,6 +2013,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1503143408}
   - component: {fileID: 1503143409}
+  - component: {fileID: 1503143410}
+  - component: {fileID: 1503143411}
+  - component: {fileID: 1503143412}
+  - component: {fileID: 1503143413}
   m_Layer: 0
   m_Name: Bard
   m_TagString: Player
@@ -1884,7 +2032,7 @@ Transform:
   m_GameObject: {fileID: 1503143407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.62, y: -0.25, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 7332492}
   m_RootOrder: 2
@@ -1923,16 +2071,74 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e8a897727a111294ca31aab4d075f5c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c7c35b3a122efa34abb0f4eaff4cc3d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.96, y: 0.96}
+  m_Size: {x: 12, y: 9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!114 &1503143410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503143407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
+--- !u!114 &1503143411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503143407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afb9e92a829c814f9dad27cbd7c16b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amBard: 1
+  havingMercy: 0
+  retreating: 0
+  staying: 0
+  aggro: 0
+  cooldown: 0
+--- !u!114 &1503143412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503143407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aec7378ff209504383442c779586fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oMod: 0
+  gMod: 0
+  aMod: 0
+  attitude: 
+--- !u!114 &1503143413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1503143407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doingSlider: 0
+  healthSlider: {fileID: 0}
+  maxHealth: 3
 --- !u!1 &1815857372
 GameObject:
   m_ObjectHideFlags: 0
