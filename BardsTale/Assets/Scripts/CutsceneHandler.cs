@@ -8,12 +8,12 @@ public class CutsceneHandler : MonoBehaviour {
 	public Sprite[] sprites; //Set publically, in Unity
 	public string nextScene;
 	private int current;
-	private Image currentImage;
+	public Image currentImage;
 
 	//Note: the size of sprites
 
 	public string[] texts;//Set publically, in Unity
-	private Text currentText;
+	public Text currentText;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +28,7 @@ public class CutsceneHandler : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.RightArrow)) {
 			if(current==sprites.Length-1)
-				SceneManager.LoadScene(nextScene);
+				SceneTransitionManager.sceneTransition(true);
 			else {
 				current++;
 				currentImage.sprite = sprites[current];
