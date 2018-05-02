@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114319734173699668}
   - component: {fileID: 114920204965203428}
   - component: {fileID: 114843671846200746}
-  - component: {fileID: 114760580063099118}
+  - component: {fileID: 114725185062833740}
   m_Layer: 0
   m_Name: bard
   m_TagString: Untagged
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: 0
---- !u!114 &114760580063099118
+--- !u!114 &114725185062833740
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -85,10 +85,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9df147bb457dbf45a59aca49d247071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doingSlider: 1
+  doingSlider: 0
   healthSlider: {fileID: 0}
   maxHealth: 3
+<<<<<<< HEAD
+=======
   currHealth: 0
+>>>>>>> origin/master
   dead: 0
 --- !u!114 &114843671846200746
 MonoBehaviour:

@@ -49,10 +49,9 @@ public class StaminaScript : MonoBehaviour
 
     public void useStamina(int stam)
     {
-        if (stam != -1)
+        if ((stam != -1) && !GetComponent<Ally>().isDefending())
         {
             currStamina -= stam;
-
         }
         else
         {
