@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CameraUI.unity
     guid: 05af0f76a87cfcf45bb9a94323311aeb
   - enabled: 1
+    path: Assets/Scenes/demo_scenes/Beginning_Scene.unity
+    guid: 03c99be4c3b79014087325e3c6096a3b
+  - enabled: 1
     path: Assets/Scenes/demo_scenes/forest/forest_B1.unity
     guid: 8542550bc3e184e43ba50c929b0a97d5
   - enabled: 1
