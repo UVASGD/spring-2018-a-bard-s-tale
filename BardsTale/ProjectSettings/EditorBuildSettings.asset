@@ -38,6 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/demo_scenes/cave/cave_C1.unity
     guid: 2cdfe783f64a9a4478fd55645b14cffa
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KennyTest.unity
     guid: 138f1bf64b545924e8497b2b68ec7d73

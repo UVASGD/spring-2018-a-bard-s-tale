@@ -20,11 +20,6 @@ public class ModifiedGVar : MonoBehaviour {
     public Image momentumBar;
 
     //Health fields
-    private Sprite fullHeart;
-    private Sprite emptyHeart;
-    private Image[] hearts;
-    private const int maxHearts = 3;
-    private int currHeart;
     private AudioCollector Audio;
     private int prevChord = -1;
 
@@ -57,17 +52,16 @@ public class ModifiedGVar : MonoBehaviour {
     private float tempo;
     private float volume;
 
-    private int cooldown = 0;
+    private int cooldown = 50;
     private int coolValue = 5;
     private bool isPlaying = false;
     private int stopcooldown = 30;
-    private int stopcoolvalue = 30;
+    private int stopcoolvalue = 60;
     private float lastTime = 0.001f;
     #endregion
 
     // Use this for initialization
     void Start () {
-		initHearts();
 		initSlides(); //set sliders and momentum bar
 		initHotbar();
 
@@ -76,8 +70,7 @@ public class ModifiedGVar : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		updateHotbar();//Changes sprites to red or green accordingly
-
+		//updateHotbar();//Changes sprites to red or green accordingly
         //The following are just for testing
         if (debug_mode)
         {
@@ -90,16 +83,7 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 changeMomentum(-.1f);
             }
-
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                damage();
-            }
-
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                heal();
-            }
+            
         }
 
         if (isPlaying)
@@ -126,6 +110,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[0]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[0].color = Color.red;
             }
@@ -139,6 +125,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[1]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[1].color = Color.red;
             }
@@ -152,6 +140,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[2]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[2].color = Color.red;
             }
@@ -165,6 +155,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[3]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[3].color = Color.red;
             }
@@ -178,6 +170,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[4]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[4].color = Color.red;
             }
@@ -191,6 +185,8 @@ public class ModifiedGVar : MonoBehaviour {
             {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[5]].Stop();
+                else
+                    stopcooldown--;
                 if (debug_mode)
                     onArray[5].color = Color.red;
             }
@@ -237,17 +233,7 @@ public class ModifiedGVar : MonoBehaviour {
 		}
 
 	}
-
-	private void initHearts() {
-		currHeart = maxHearts;
-		fullHeart = Resources.Load <Sprite> ("Sprites/Full_Heart");
-		emptyHeart = Resources.Load <Sprite> ("Sprites/Empty_Heart");
-		GameObject healthbar = ui.transform.Find("Healthbar").gameObject;
-		hearts = new Image[maxHearts];
-		for(int i = 0; i < maxHearts; ++i) {
-			hearts[i] = healthbar.transform.Find("Heart "+(i+1)).GetComponent<Image>();
-		}
-	}
+    
 
 	private void initSlides() {
         if (GAMESTATS.isBattle)
@@ -386,41 +372,12 @@ public class ModifiedGVar : MonoBehaviour {
 		}
 	}
 
-	private void setHealth(int m) {
-		if(m<0)
-			m=0;
-		if(m>maxHearts)
-			m=maxHearts;
-		int i=0;
-		for(; i< m; ++i)
-			hearts[i].sprite =fullHeart;
-		for(; i<maxHearts; ++i)
-			hearts[i].sprite = emptyHeart;
-		currHeart=m;
-	}
 
-	//Public methods which the Bard class can Use
-	public void changeNote(int i, string s) {
-		valArray[i].text = s;
-	}
-
-	public void damage() {
-		damage(1);
-	}
-
-	public void damage(int d) {
-		setHealth(currHeart-d);
-	}
-	public void heal() {
-		heal(1);
-	}
-	public void heal(int h) {
-		setHealth(currHeart+h);
-	}
-
-	public void fullHeal() {
-		setHealth(maxHearts);
-	}
+    //Public methods which the Bard class can Use
+    public void changeNote(int i, string s)
+    {
+        valArray[i].text = s;
+    }
 
 	public void setMomentum(float x) {
 		momentumBar.fillAmount = x;

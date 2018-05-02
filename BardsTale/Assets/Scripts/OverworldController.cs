@@ -8,7 +8,6 @@ public class OverworldController : MonoBehaviour {
     public int numStages = 1;
 
     public GameObject[] flags = new GameObject[] { null };
-    GameObject[] crew = GAMESTATS.friends;
 
     // Use this for initialization
     void Start () {
@@ -32,13 +31,13 @@ public class OverworldController : MonoBehaviour {
     {
         bool everyoneMoving = true;
         bool everyoneAggro = true;
-        for (int i = 0; i < crew.Length; i++)
+        for (int i = 0; i < GAMESTATS.friends.Length; i++)
         {
-            if (crew[i].GetComponent<Action>().staying)
+            if (GAMESTATS.friends[i].GetComponent<Action>().staying)
             {
                 everyoneMoving = false;
             }
-            if (crew[i].GetComponent<Action>().aggro == false)
+            if (GAMESTATS.friends[i].GetComponent<Action>().aggro == false)
             {
                 everyoneAggro = false;
             }
@@ -63,9 +62,9 @@ public class OverworldController : MonoBehaviour {
     //moves the crew to the next flag- gonna have to have separate scripts for those flags to have things happen (like dialogue)
     void moveToStage(int number)
     {
-        for (int i = 0; i < crew.Length; i++)
+        for (int i = 0; i < GAMESTATS.friends.Length; i++)
         {
-            crew[i].GetComponent<movement>().moveTo(new Vector2(flags[number].transform.position.x, flags[number].transform.position.y));
+            GAMESTATS.friends[i].GetComponent<movement>().moveTo(new Vector2(flags[number].transform.position.x, flags[number].transform.position.y));
         }
     }
 
