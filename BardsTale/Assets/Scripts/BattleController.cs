@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour 
 {
@@ -8,6 +9,8 @@ public class BattleController : MonoBehaviour
 
     public GameObject[] allies;
     public GameObject[] enemies;
+
+    public Slider momentum;
 
     public bool debug_mode = false;
 
@@ -39,17 +42,17 @@ public class BattleController : MonoBehaviour
         enemies = GAMESTATS.enemies;
         checkOnActions();
 
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKeyDown("b"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
             allies[0].GetComponent<BarbarianScript>().basicAttack(enemies[randIndex]);
         }
-        if (Input.GetKeyDown("s"))
+        if (Input.GetKeyDown("n"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
             allies[0].GetComponent<BarbarianScript>().heavyAttack(enemies[randIndex]);
         }
-        if (Input.GetKeyDown("d"))
+        if (Input.GetKeyDown("m"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
             allies[0].GetComponent<BarbarianScript>().recklessAttack(enemies[randIndex]);
@@ -73,6 +76,7 @@ public class BattleController : MonoBehaviour
         
         for (int i = 0; i < allies.Length; i++)
         {
+            Debug.Log("Accessing friends at " + i + ": " + allies[i]);
             if (allies[i].GetComponent<Action>().havingMercy == false)
             {
                 everyoneMercy = false;
@@ -83,26 +87,33 @@ public class BattleController : MonoBehaviour
             }
             if (allies[i].GetComponent<Action>().amBard)
             {
-                totalAllyHealth += allies[i].GetComponent<HealthScript>().getHealthStats()[0];
-                maxAllyHealth += allies[i].GetComponent<HealthScript>().getHealthStats()[1];
+                Debug.Log(allies[i].GetComponent<HealthScript>().getHealthStats()[0] + ", " + allies[i].GetComponent<HealthScript>().getHealthStats()[1]);
+                totalAllyHealth += GAMESTATS.friends[i].GetComponent<HealthScript>().getHealthStats()[0];
+                maxAllyHealth += GAMESTATS.friends[i].GetComponent<HealthScript>().getHealthStats()[1];
             }
             else
             {
-                totalAllyHealth += allies[i].GetComponent<StaminaScript>().getStaminaStats()[0];
-                maxAllyHealth += allies[i].GetComponent<StaminaScript>().getStaminaStats()[1];
+                Debug.Log(allies[i].GetComponent<StaminaScript>().getStaminaStats()[0] + ", " + allies[i].GetComponent<StaminaScript>().getStaminaStats()[1]);
+                totalAllyHealth += GAMESTATS.friends[i].GetComponent<StaminaScript>().getStaminaStats()[0];
+                maxAllyHealth += GAMESTATS.friends[i].GetComponent<StaminaScript>().getStaminaStats()[1];
             }
         }
-        AllyHealthRatio = totalAllyHealth / maxAllyHealth;
+        AllyHealthRatio = (float)totalAllyHealth / maxAllyHealth;
+
+        Debug.Log("Ally Health: " + AllyHealthRatio);
 
         int totalEnemyHealth = 0;
         int maxEnemyHealth = 1;
         float EnemyHealthRatio = 0.0f;
         for (int j = 0; j < enemies.Length; j++)
         {
-            totalEnemyHealth += enemies[j].GetComponent<HealthScript>().getHealthStats()[0];
-            maxEnemyHealth += enemies[j].GetComponent<HealthScript>().getHealthStats()[1];
+            totalEnemyHealth += GAMESTATS.enemies[j].GetComponent<HealthScript>().getHealthStats()[0];
+            maxEnemyHealth += GAMESTATS.enemies[j].GetComponent<HealthScript>().getHealthStats()[1];
         }
-        EnemyHealthRatio = totalEnemyHealth / maxEnemyHealth;
+        EnemyHealthRatio = (float)totalEnemyHealth / maxEnemyHealth;
+
+
+        Debug.Log("Enemy Health: " + EnemyHealthRatio);
 
         enemiesWeakEnough = EnemyHealthRatio < 0.2;
         alliesStrongEnough = AllyHealthRatio > 0.2;
@@ -116,7 +127,14 @@ public class BattleController : MonoBehaviour
             SceneTransitionManager.sceneTransition(true); //retreat, move forward !? 
             //(right now, sceneTransition() doesn't work for moving backwards, but it shouldn't matter for the demo.)
         }
+        momentum.maxValue = 1;
+        momentum.minValue = 0;
+        momentum.value = (AllyHealthRatio - EnemyHealthRatio + 1) / 2;
 
+        if (momentum.value > 0.8)
+        {
+            SceneTransitionManager.sceneTransition(true); //game is won, move forward
+        }
 
     }
 }

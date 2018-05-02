@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114843671846200746}
   - component: {fileID: 114760580063099118}
   m_Layer: 0
-  m_Name: Bard
+  m_Name: bard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +88,8 @@ MonoBehaviour:
   doingSlider: 1
   healthSlider: {fileID: 0}
   maxHealth: 3
+  currHealth: 0
+  dead: 0
 --- !u!114 &114843671846200746
 MonoBehaviour:
   m_ObjectHideFlags: 1
