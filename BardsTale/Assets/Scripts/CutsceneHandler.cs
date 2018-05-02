@@ -17,8 +17,8 @@ public class CutsceneHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentImage = this.GetComponent<Image>();
-		currentText = this.transform.Find("TextBox").GetComponentInChildren<Text>();
+		//currentImage = this.GetComponent<Image>();
+		//currentText = this.transform.Find("TextBox").GetComponentInChildren<Text>();
 		current = 0;
 		currentImage.sprite = sprites[current];
 		currentText.text = texts[current];
