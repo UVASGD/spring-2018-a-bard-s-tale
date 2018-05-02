@@ -7,7 +7,7 @@ public class constructor : MonoBehaviour {
     public bool enemy = false;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         Debug.Log("Constructor method called, enemy is :" + enemy);
 		if (enemy)
         {

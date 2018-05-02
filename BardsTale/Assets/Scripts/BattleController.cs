@@ -15,6 +15,21 @@ public class BattleController : MonoBehaviour
 	void Start () {
         allies = GAMESTATS.friends;
         enemies = GAMESTATS.enemies;
+
+        string allyList = "Allies: ";
+        foreach (GameObject a in allies)
+        {
+            allyList += a.name + " ";
+        }
+
+        string enemyList = "Enemies: ";
+        foreach (GameObject e in enemies)
+        {
+            enemyList += e.name + " ";
+        }
+
+        Debug.Log(allyList);
+        Debug.Log(enemyList);
     }
 	
 	// Update is called once per frame
@@ -27,17 +42,17 @@ public class BattleController : MonoBehaviour
         if (Input.GetKeyDown("a"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
-            allies[1].GetComponent<BarbarianScript>().basicAttack(enemies[randIndex]);
+            allies[0].GetComponent<BarbarianScript>().basicAttack(enemies[randIndex]);
         }
         if (Input.GetKeyDown("s"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
-            allies[1].GetComponent<BarbarianScript>().heavyAttack(enemies[randIndex]);
+            allies[0].GetComponent<BarbarianScript>().heavyAttack(enemies[randIndex]);
         }
         if (Input.GetKeyDown("d"))
         {
             int randIndex = (int)(Random.Range(0, enemies.Length));
-            allies[1].GetComponent<BarbarianScript>().recklessAttack(enemies[randIndex]);
+            allies[0].GetComponent<BarbarianScript>().recklessAttack(enemies[randIndex]);
         }
     }
 

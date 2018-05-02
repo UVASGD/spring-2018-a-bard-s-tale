@@ -21,8 +21,14 @@ GameObject:
   - component: {fileID: 4693800647804566}
   - component: {fileID: 212958727956638750}
   - component: {fileID: 95588084468448640}
+  - component: {fileID: 114236227205654708}
+  - component: {fileID: 114419466938366332}
+  - component: {fileID: 114235715748081438}
+  - component: {fileID: 114375451071274062}
+  - component: {fileID: 114201722801237922}
+  - component: {fileID: 114843660775610332}
   m_Layer: 0
-  m_Name: barbaran
+  m_Name: Barbarian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,9 +40,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109581725909582}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.082, y: -0.492, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.52, y: -0.87, z: 0}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,6 +64,89 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114201722801237922
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aec7378ff209504383442c779586fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oMod: 0
+  gMod: 0
+  aMod: 0
+  attitude: 
+--- !u!114 &114235715748081438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afb9e92a829c814f9dad27cbd7c16b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amBard: 0
+  havingMercy: 0
+  retreating: 0
+  staying: 0
+  aggro: 0
+  cooldown: 0
+--- !u!114 &114236227205654708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aba71fb1f85cc440980d372979eba99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doingSlider: 1
+  staminaSlider: {fileID: 0}
+  maxStamina: 4
+--- !u!114 &114375451071274062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efc9ca207fd69e4c952fe68e827622e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites: []
+  nextScene: 
+  texts: []
+--- !u!114 &114419466938366332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f69d0d1b3574e4faf3bdf13b80afd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114843660775610332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1109581725909582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f94584058d2db4da737343ffb45e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: 0
 --- !u!212 &212958727956638750
 SpriteRenderer:
   m_ObjectHideFlags: 1
