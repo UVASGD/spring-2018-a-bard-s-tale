@@ -136,5 +136,9 @@ public class BattleController : MonoBehaviour
             SceneTransitionManager.sceneTransition(true); //game is won, move forward
         }
 
+        if (GAMESTATS.friends[0].GetComponent<HealthScript>().dead)
+        {
+            SceneTransitionManager.sceneTransition(true); //bard is dead, move forward
+        }
     }
 }
