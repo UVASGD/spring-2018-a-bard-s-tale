@@ -47,6 +47,8 @@ public class ModifiedGVar : MonoBehaviour {
         public Text ATT;
     #endregion
 
+    public bool text_debug = false;
+
     //some more fields brought over from GVar
     #region properties
     private float frequency;
@@ -107,7 +109,10 @@ public class ModifiedGVar : MonoBehaviour {
         cooldown--;
         if (cooldown > 0)
         {
-            //Debug.Log(cooldown + "");
+            if (debug_mode)
+            {
+                //Debug.Log(cooldown + "");
+            }
         }
         else
         {
@@ -174,7 +179,7 @@ public class ModifiedGVar : MonoBehaviour {
                 if (stopcooldown < 0)
                     Audio.clips[GAMESTATS.chosenChords[4]].Stop();
                 if (debug_mode)
-                   onArray[4].color = Color.red;
+                    onArray[4].color = Color.red;
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
@@ -228,7 +233,9 @@ public class ModifiedGVar : MonoBehaviour {
 		for(int i = 0; i< 6; i++) {
 			onArray[i]=hotkeys[i].GetComponentInChildren<Image>();
 			valArray[i]=hotkeys[i].GetComponentInChildren<Text>();
+            valArray[i].text = GAMESTATS.possChords[GAMESTATS.chosenChords[i]];
 		}
+
 	}
 
 	private void initHearts() {
@@ -261,7 +268,7 @@ public class ModifiedGVar : MonoBehaviour {
         string chordPlayed = text;
 
         //set tone
-        tone += (GAMESTATS.tones[index] / 10);
+        tone += (GAMESTATS.tones[index]);
         if (tone > 10)
         {
             tone = 10;
@@ -312,42 +319,60 @@ public class ModifiedGVar : MonoBehaviour {
 		//Hotbar is pressed down
 		if(Input.GetKeyDown(KeyCode.A)) {
 			onArray[0].color = Color.green;
+            Debug.Log("A pressed");
+            playChord(onArray[0], GAMESTATS.possChords[GAMESTATS.chosenChords[0]], GAMESTATS.chosenChords[0]);
 		}
 		if(Input.GetKeyDown(KeyCode.S)) {
 			onArray[1].color = Color.green;
-		}
+            Debug.Log("S pressed");
+            playChord(onArray[1], GAMESTATS.possChords[GAMESTATS.chosenChords[1]], GAMESTATS.chosenChords[0]);
+        }
 		if(Input.GetKeyDown(KeyCode.D)) {
 			onArray[2].color = Color.green;
-		}
+            Debug.Log("D pressed");
+            playChord(onArray[2], GAMESTATS.possChords[GAMESTATS.chosenChords[2]], GAMESTATS.chosenChords[0]);
+        }
 		if(Input.GetKeyDown(KeyCode.F)) {
 			onArray[3].color = Color.green;
-		}
+            Debug.Log("F pressed");
+            playChord(onArray[3], GAMESTATS.possChords[GAMESTATS.chosenChords[3]], GAMESTATS.chosenChords[0]);
+        }
 		if(Input.GetKeyDown(KeyCode.G)) {
 			onArray[4].color = Color.green;
-		}
+            Debug.Log("G pressed");
+            playChord(onArray[4], GAMESTATS.possChords[GAMESTATS.chosenChords[4]], GAMESTATS.chosenChords[0]);
+        }
 		if(Input.GetKeyDown(KeyCode.H)) {
 			onArray[5].color = Color.green;
-		}
+            Debug.Log("H pressed");
+            playChord(onArray[5], GAMESTATS.possChords[GAMESTATS.chosenChords[5]], GAMESTATS.chosenChords[0]);
+        }
 
 		//Hotbar is released
 		if(Input.GetKeyUp(KeyCode.A)) {
 			onArray[0].color = Color.red;
+            Audio.clips[GAMESTATS.chosenChords[0]].Stop();
 		}
 		if(Input.GetKeyUp(KeyCode.S)) {
 			onArray[1].color = Color.red;
-		}
+            Audio.clips[GAMESTATS.chosenChords[1]].Stop();
+        }
 		if(Input.GetKeyUp(KeyCode.D)) {
 			onArray[2].color = Color.red;
-		}
+            Audio.clips[GAMESTATS.chosenChords[2]].Stop();
+        }
 		if(Input.GetKeyUp(KeyCode.F)) {
 			onArray[3].color = Color.red;
-		}
+            Audio.clips[GAMESTATS.chosenChords[3]].Stop();
+        }
 		if(Input.GetKeyUp(KeyCode.G)) {
 			onArray[4].color = Color.red;
-		}
+            Audio.clips[GAMESTATS.chosenChords[4]].Stop();
+        }
 		if(Input.GetKeyUp(KeyCode.H)) {
 			onArray[5].color = Color.red;
-		}
+            Audio.clips[GAMESTATS.chosenChords[5]].Stop();
+        }
 		//Use tab to hide the hotbar!
 		if(Input.GetKeyDown(KeyCode.Tab)) {
 			if(!hidden) {

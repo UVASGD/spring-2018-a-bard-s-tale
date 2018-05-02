@@ -76,7 +76,8 @@ public class BattleController : MonoBehaviour
         
         for (int i = 0; i < allies.Length; i++)
         {
-            Debug.Log("Accessing friends at " + i + ": " + allies[i]);
+            if (debug_mode)
+                Debug.Log("Accessing friends at " + i + ": " + allies[i]);
             if (allies[i].GetComponent<Action>().havingMercy == false)
             {
                 everyoneMercy = false;
@@ -87,20 +88,23 @@ public class BattleController : MonoBehaviour
             }
             if (allies[i].GetComponent<Action>().amBard)
             {
-                Debug.Log(allies[i].GetComponent<HealthScript>().getHealthStats()[0] + ", " + allies[i].GetComponent<HealthScript>().getHealthStats()[1]);
+                if (debug_mode)
+                    Debug.Log(allies[i].GetComponent<HealthScript>().getHealthStats()[0] + ", " + allies[i].GetComponent<HealthScript>().getHealthStats()[1]);
                 totalAllyHealth += GAMESTATS.friends[i].GetComponent<HealthScript>().getHealthStats()[0];
                 maxAllyHealth += GAMESTATS.friends[i].GetComponent<HealthScript>().getHealthStats()[1];
             }
             else
             {
-                Debug.Log(allies[i].GetComponent<StaminaScript>().getStaminaStats()[0] + ", " + allies[i].GetComponent<StaminaScript>().getStaminaStats()[1]);
+                if (debug_mode)
+                    Debug.Log(allies[i].GetComponent<StaminaScript>().getStaminaStats()[0] + ", " + allies[i].GetComponent<StaminaScript>().getStaminaStats()[1]);
                 totalAllyHealth += GAMESTATS.friends[i].GetComponent<StaminaScript>().getStaminaStats()[0];
                 maxAllyHealth += GAMESTATS.friends[i].GetComponent<StaminaScript>().getStaminaStats()[1];
             }
         }
         AllyHealthRatio = (float)totalAllyHealth / maxAllyHealth;
 
-        Debug.Log("Ally Health: " + AllyHealthRatio);
+        if(debug_mode)
+            Debug.Log("Ally Health: " + AllyHealthRatio);
 
         int totalEnemyHealth = 0;
         int maxEnemyHealth = 1;
@@ -112,8 +116,8 @@ public class BattleController : MonoBehaviour
         }
         EnemyHealthRatio = (float)totalEnemyHealth / maxEnemyHealth;
 
-
-        Debug.Log("Enemy Health: " + EnemyHealthRatio);
+        if (debug_mode)
+            Debug.Log("Enemy Health: " + EnemyHealthRatio);
 
         enemiesWeakEnough = EnemyHealthRatio < 0.2;
         alliesStrongEnough = AllyHealthRatio > 0.2;

@@ -131,7 +131,7 @@ public class GVarHandler : MonoBehaviour
         string chordPlayed = text;
 
         //set tone
-        tone += (GAMESTATS.tones[index] / 10);
+        tone += (GAMESTATS.tones[index]);
         if (tone > 10)
         {
             tone = 10;
