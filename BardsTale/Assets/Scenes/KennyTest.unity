@@ -162,7 +162,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 0}
   - {fileID: 0}
-  momentum: {fileID: 0}
+  momentum: {fileID: 204690704}
   debug_mode: 0
 --- !u!1 &9858676
 GameObject:
