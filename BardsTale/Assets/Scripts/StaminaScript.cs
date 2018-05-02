@@ -52,6 +52,7 @@ public class StaminaScript : MonoBehaviour
         if (stam != -1)
         {
             currStamina -= stam;
+
         }
         else
         {

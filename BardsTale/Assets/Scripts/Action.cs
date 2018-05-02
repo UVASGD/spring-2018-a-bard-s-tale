@@ -12,7 +12,7 @@ public class Action : MonoBehaviour {
     public bool staying;
     public bool aggro;
 
-    public long cooldown = 0;
+    public float cooldown = 0;
 
     // Use this for initialization
     void Start()
@@ -26,7 +26,7 @@ public class Action : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (cooldown < 5)
+        if (cooldown < 0)
         {
             switch (GetComponent<Personality>().attitude)
             {
@@ -116,9 +116,12 @@ public class Action : MonoBehaviour {
                     break;
 
             }
-            cooldown = 500;
+            cooldown = 2;
         }
-        else { cooldown--; }
+        else
+        {
+            cooldown -= Time.deltaTime;
+        }
         
 	}
 
